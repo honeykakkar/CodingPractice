@@ -31,6 +31,8 @@ public class MinimumSorting {
 
     private void findIndices(Result result, ArrayList<Integer> array) {
         int tempStart = 0, tempEnd = array.size() - 1;
+
+        // find the naive starting index by checking the increasing sequence of elements from the start of array
         for (int i = 1; i < array.size(); ++i) {
             if (array.get(i) >= array.get(i - 1))
                 ++tempStart;
@@ -39,6 +41,7 @@ public class MinimumSorting {
         }
         ++tempStart;
 
+        // find the naive ending index by checking the decreasing sequence of elements from the end of array
         for (int i = array.size() - 1; i >= 0; --i) {
             if (array.get(i) >= array.get(i - 1))
                 --tempEnd;
@@ -47,7 +50,11 @@ public class MinimumSorting {
         }
         --tempEnd;
 
+        // Now, we know the naive start and end indices.
+        // Expand the window according to the elements contained in the window, and comparing them with the rest of elements
         int windowMin = Integer.MAX_VALUE, windowMax = Integer.MIN_VALUE;
+
+        // find the elements with minimum and maximum value in the window
         for(int i=tempStart; i<=tempEnd; ++i){
             if(array.get(i)>windowMax)
                 windowMax = array.get(i);
@@ -70,7 +77,6 @@ public class MinimumSorting {
                 break;
             }
         }
-
         result.startIndex = tempStart;
         result.endIndex = tempEnd - 1;
     }
@@ -90,7 +96,10 @@ public class MinimumSorting {
             System.out.print(current + "\t");
         Result result = new Result();
         MinimumSorting currentObject = new MinimumSorting();
+        long startTime = System.nanoTime();
         currentObject.findIndices(result, array);
+        long timeTaken = System.nanoTime() - startTime;
         result.displayIndices();
+        System.out.println("\nThe algorithm took " + timeTaken + " nanoseconds.");
     }
 }
