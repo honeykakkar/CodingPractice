@@ -1,4 +1,4 @@
-package Algorithms;
+package DataStructures;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class ContiguousLargestSum {
 
-    private int contiguousLargestSum(ArrayList<Integer> array){
+    int contiguousLargestSum(ArrayList<Integer> array){
         int currentMax = array.get(0);
         int optimumMax = currentMax;
 
