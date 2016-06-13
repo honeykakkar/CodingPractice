@@ -1,4 +1,4 @@
-package DataStructures;
+package Algorithms;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class TicTacToe {
 
     private String whoIsWinner(char[][] board, int N){
         String winner = "No one has won the game yet.";
-        int row=0, column=0;
+        int row, column;
         for(row=0; row<N; ++row){
             for (column=1; column<N; ++column){
                 if(board[row][column] != board[row][column-1])
