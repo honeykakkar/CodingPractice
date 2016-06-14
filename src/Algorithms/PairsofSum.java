@@ -39,7 +39,7 @@ public class PairsofSum {
         System.out.println("\nEnter a value which all pairs of integers within an array should sum to:");
         int sum = scanner.nextInt();
         PairsofSum currentObject = new PairsofSum();
-        System.out.println("Showing all pairs of integers within an array which sum to " + sum + ":\n");
+        System.out.println("\nShowing all pairs of integers within an array which sum to " + sum + ":");
         long startTime = System.nanoTime();
         currentObject.pairsOfSum(array, sum);
         long endTime = System.nanoTime();

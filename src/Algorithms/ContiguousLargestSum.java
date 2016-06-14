@@ -1,4 +1,4 @@
-package DataStructures;
+package Algorithms;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class ContiguousLargestSum {
 
-    int contiguousLargestSum(ArrayList<Integer> array){
+    private int contiguousLargestSum(ArrayList<Integer> array){
         int currentMax = array.get(0);
         int optimumMax = currentMax;
 
@@ -41,11 +41,11 @@ public class ContiguousLargestSum {
         System.out.println("Showing elements in the array (insertion order):");
         for (int current : array)
             System.out.print(current + "\t");
-        long startTime = System.nanoTime();
         ContiguousLargestSum currentObject = new ContiguousLargestSum();
+        long startTime = System.nanoTime();
         int result = currentObject.contiguousLargestSum(array);
-        long timeTaken = System.nanoTime() - startTime;
+        long endTime = System.nanoTime();
         System.out.println("\n\nThe largest sum is : " + result);
-        System.out.println("\nThe algorithm took " + timeTaken + " nanoseconds.");
+        System.out.println("\nThe algorithm took " + (endTime - startTime) + " nanoseconds.");
     }
 }
