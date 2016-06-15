@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/11/2016.
+ * Author: honey
+ * Package: ${PACKAGE_NAME}
+ * Project: CodingPractice
+ * Date created: 6/11/2016
  */
 
 /*You are given an array of integers (both positive and negative). Find the contiguous
