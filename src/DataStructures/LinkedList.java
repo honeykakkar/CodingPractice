@@ -1,8 +1,12 @@
 package DataStructures;
 
 /**
- * Created by honey on 6/4/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/4/2016
  */
+
+// Code to implement a singly linked list
 
 public class LinkedList<T>
 {
@@ -10,6 +14,10 @@ public class LinkedList<T>
 
     LinkedList() {
         head = null;
+    }
+
+    LinkedList(LinkedListNode<T> head) {
+        this.head = head;
     }
 
     void displayList(){
@@ -27,7 +35,7 @@ public class LinkedList<T>
         System.out.println(temp.value);
     }
 
-    private void pushNode(T data){
+    void pushNode(T data){
         LinkedListNode<T> newNode = new LinkedListNode<>(data, null);
         if(this.head == null)
             head = newNode;
@@ -52,13 +60,23 @@ public class LinkedList<T>
         }
     }
 
-    void clearAll(){
-        this.head = null;
+    void removeNode(T value){
+        LinkedListNode<T> tempNode = head;
+        if(head.getValue().equals(value))
+            head = head.next;
+        else{
+            while(tempNode.next != null){
+                if(tempNode.next.value.equals(value)){
+                    tempNode.next = tempNode.next.next;
+                    return;
+                }
+                tempNode = tempNode.next;
+            }
+        }
     }
 
-
-    public LinkedList(LinkedListNode<T> head) {
-        this.head = head;
+    void clearAll(){
+        this.head = null;
     }
 
     static class LinkedListNode<T>

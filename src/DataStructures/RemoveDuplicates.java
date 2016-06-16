@@ -1,9 +1,12 @@
 package DataStructures;
 
+import DataStructures.LinkedList.LinkedListNode;
 import java.util.HashSet;
 
 /**
- * Created by honey on 6/4/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/4/2016
  */
 
 // Write code to remove duplicates from an unsorted linked list.
@@ -12,11 +15,11 @@ import java.util.HashSet;
 
 public class RemoveDuplicates {
 
-    private void removeDuplicates(DataStructures.LinkedList.LinkedListNode head){
+    private void removeDuplicates(LinkedListNode head){
         if(head == null || head.getNext() == null)
             return;
-        DataStructures.LinkedList.LinkedListNode tempNode = head;
-        DataStructures.LinkedList.LinkedListNode previousNode = null;
+        LinkedListNode tempNode = head;
+        LinkedListNode previousNode = null;
         HashSet nodeSet = new HashSet();
         while (tempNode != null){
             if(!nodeSet.contains(tempNode.getValue()))
@@ -34,7 +37,7 @@ public class RemoveDuplicates {
     }
 
     public static void main(String[] args) {
-        DataStructures.LinkedList<Integer> integerLinkedList = new DataStructures.LinkedList<>();
+        LinkedList<Integer> integerLinkedList = new LinkedList<>();
         integerLinkedList.pushNodes(61, 59, 19, 23, 23, 11, 34, 56, 7, 11, 97, 3, 19, 17, 11, 97, 47, 61, 19, 7, 59);
         integerLinkedList.displayList();
         RemoveDuplicates currentObject = new RemoveDuplicates();

@@ -2,14 +2,16 @@ package DataStructures;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/4/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/4/2016
  */
 
 // Given two strings, write a method to decide if one is a permutation of the other.
 
 public class Anagrams
 {
-    boolean isAnagram(CharSequence input1, CharSequence input2)
+    private boolean isAnagram(CharSequence input1, CharSequence input2)
     {
         if(input1.length() != input2.length())
             return false;

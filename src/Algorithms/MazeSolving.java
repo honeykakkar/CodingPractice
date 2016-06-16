@@ -3,7 +3,9 @@ package Algorithms;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/13/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/13/2016
  */
 
 // Check for a path between a source and destination in a maze.
@@ -34,7 +36,7 @@ public class MazeSolving {
             return true;
         if(findpath(x - 1, y))      // move in the north direction
             return true;
-        this.maze[x][y] = 'V';      // Backtracking here. It means that earlier, a bad cell (or path) was chosen.
+        this.maze[x][y] = '|';      // Backtracking here. It means that earlier, a bad cell (or path) was chosen.
         return false;
     }
 

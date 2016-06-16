@@ -1,9 +1,11 @@
-package DataStructures;
+package Algorithms;
 
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/6/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/6/2016
  */
 
 /*
@@ -79,8 +81,8 @@ public class MasterMind {
         String solution = "BYYG";
         long startTime = System.nanoTime();
         currentObject.getResult(result, guess, solution);
-        long timeTaken = System.nanoTime() - startTime;
+        long endTime = System.nanoTime();
         System.out.println("\nTotal Hits: " + result.hits + "\nTotal Pseudo-hits: " + result.pseudoHits);
-        System.out.println("\nThe algorithm took " + timeTaken +" nanoseconds.");
+        System.out.println("\nThe algorithm took " + (endTime - startTime) +" nanoseconds.");
     }
 }
