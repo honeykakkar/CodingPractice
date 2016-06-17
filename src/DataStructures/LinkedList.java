@@ -20,6 +20,10 @@ public class LinkedList<T>
         this.head = head;
     }
 
+    void setHead(LinkedListNode<T> head) {
+        this.head = head;
+    }
+
     void displayList(){
         if(head == null){
             System.out.println("\nOops !! Linked list is empty.");
@@ -27,6 +31,21 @@ public class LinkedList<T>
         }
         System.out.print("\nDisplaying nodes in the current list:");
         LinkedListNode<T> temp = this.head;
+        System.out.println();
+        while(temp.next != null){
+            System.out.print(temp.value + " --> ");
+            temp = temp.next;
+        }
+        System.out.println(temp.value);
+    }
+
+    static void displayList(LinkedListNode myHead){
+        if(myHead == null){
+            System.out.println("\nOops !! Linked list is empty.");
+            return;
+        }
+        System.out.print("\nDisplaying nodes in the current list:");
+        LinkedListNode temp = myHead;
         System.out.println();
         while(temp.next != null){
             System.out.print(temp.value + " --> ");
@@ -48,7 +67,8 @@ public class LinkedList<T>
         }
     }
 
-    void pushNodes(T... data){
+    @SafeVarargs
+    final void pushNodes(T... data){
         if(data.length == 0)
             return;
         LinkedListNode<T> headNode = new LinkedListNode<>(data[0], null);
@@ -81,8 +101,8 @@ public class LinkedList<T>
 
     static class LinkedListNode<T>
     {
-        private T value;
-        private LinkedListNode<T> next;
+        public T value;
+        public LinkedListNode<T> next;
 
         public LinkedListNode(T value) {
             this.value = value;
