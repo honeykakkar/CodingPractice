@@ -1,6 +1,7 @@
-package DataStructures.Graph;
+package DataStructures.Graphs;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Author: honey
@@ -11,10 +12,12 @@ public class Vertex {
 
     private HashSet<Edge> neighbours;
     private String name;
+    public boolean visited;
 
     Vertex(String name){
         this.neighbours = new HashSet<>();
         this.name = name;
+        this.visited = false;
     }
 
     public void addNeighbour(Edge newNB){
@@ -44,5 +47,11 @@ public class Vertex {
 
     public int getNeighbourCount(){
         return neighbours.size();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Vertex Obj = (Vertex)obj;
+        return this.getAllNeighbours().equals(Obj.getAllNeighbours()) && Objects.equals(this.name, Obj.name);
     }
 }
