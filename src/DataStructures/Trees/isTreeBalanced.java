@@ -30,10 +30,14 @@ public class isTreeBalanced {
         BST.insert(9,2,6,8,5,1,13,21,13,24,11,10);
         System.out.println("Displaying current tree:\n");
         BST.displayTree();
-        System.out.println("The tree is " + (currentObject.isBalanced(BST.getRoot()) ? "balanced." : "unbalanced."));
+        long startTime = System.nanoTime();
+        Boolean result = currentObject.isBalanced(BST.getRoot());
+        long endTime = System.nanoTime();
+        System.out.println("The tree is " + (result ? "balanced." : "unbalanced."));
         BST.insert(7);
         System.out.println("Displaying tree after inserting a new node(7):\n");
         BST.displayTree();
         System.out.println("The tree is " + (currentObject.isBalanced(BST.getRoot()) ? "balanced." : "unbalanced."));
+        System.out.println("The algorithm took " + (endTime - startTime) + " nanoseconds.");
     }
 }
