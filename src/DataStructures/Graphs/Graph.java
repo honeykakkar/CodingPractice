@@ -79,12 +79,27 @@ public class Graph {
         }
     }
 
+    public HashSet<Edge> getEdges(){
+        HashSet<Edge> edges = new HashSet<>();
+        for (Vertex current : adjacencyList.keySet()){
+            for (Edge edge: current.getAllNeighbours())
+                edges.add(edge);
+        }
+        return edges;
+    }
+
     public boolean hasVertex(String vName){
         return vertices.containsKey(vName);
     }
 
+    public Vertex getVertex(String vName){
+        if(hasVertex(vName))
+            return vertices.get(vName);
+        return null;
+    }
+
     public static void main(String[] args) {
-        Graph testGraph = new Graph(GraphType.UNDIRECTED);
+        Graph testGraph = new Graph(GraphType.DIRECTED);
         testGraph.addEdge("V1","V2",1);
         testGraph.addEdge("V2","V3",1);
         testGraph.addEdge("V1","V3",2);

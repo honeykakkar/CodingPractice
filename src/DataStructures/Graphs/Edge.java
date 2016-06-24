@@ -5,7 +5,7 @@ package DataStructures.Graphs;
  * Project: CodingPractice
  * Date created: 6/16/2016
  */
-public class Edge {
+public class Edge implements Comparable<Edge> {
     private Vertex source;
     private Vertex destination;
     private int weight;
@@ -42,5 +42,20 @@ public class Edge {
         this.source = source;
         this.destination = destination;
         this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Edge o) {
+        return Integer.compare(this.weight, o.weight);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Edge))
+            return false;
+        Edge other = (Edge)obj;
+        return this.source.equals(other.source) &&
+                this.destination.equals(other.destination) &&
+                this.weight == other.weight;
     }
 }

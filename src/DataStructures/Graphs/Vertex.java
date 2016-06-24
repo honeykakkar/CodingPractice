@@ -51,6 +51,8 @@ public class Vertex {
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof Vertex))
+            return false;
         Vertex Obj = (Vertex)obj;
         return this.getAllNeighbours().equals(Obj.getAllNeighbours()) && Objects.equals(this.name, Obj.name);
     }
