@@ -1,5 +1,7 @@
 package DataStructures;
 
+import DataStructures.Graphs.Vertex;
+
 import java.util.HashMap;
 
 /**
@@ -7,14 +9,14 @@ import java.util.HashMap;
  * Project: CodingPractice
  * Date created: 6/22/2016
  */
-public class DisjointSet {
+public class DisjointSet<T> {
 
-    class DSElement{
-        long data;
+    class DSElement<T>{
+        T data;
         int rank;
-        DSElement parent;
+        DSElement<T> parent;
 
-        public DSElement(long data, int rank) {
+        public DSElement(T data, int rank) {
             this.data = data;
             this.rank = rank;
             this.parent = null;
@@ -22,26 +24,32 @@ public class DisjointSet {
 
         @Override
         public boolean equals(Object obj) {
+            if (!(obj instanceof DSElement))
+                return false;
             DSElement dsObj = (DSElement) obj;
             return this.parent == dsObj.parent && this.data == dsObj.data && this.rank == dsObj.rank;
         }
     }
 
-    HashMap<Long, DSElement> elements;
+    HashMap<T, DSElement<T>> elements;
 
     public DisjointSet() {
         elements = new HashMap<>();
     }
 
-    public void insert(long newData){
-        DSElement newElement = new DSElement(newData, 0);
+    public DisjointSet(int N) {
+        elements = new HashMap<T, DSElement<T>>(N);
+    }
+
+    public void insert(T newData){
+        DSElement<T> newElement = new DSElement<>(newData, 0);
         newElement.parent = newElement;
         elements.put(newData, newElement);
     }
 
-    public boolean union(long data1, long data2){
-        DSElement element1 = elements.get(data1);
-        DSElement element2 = elements.get(data2);
+    public boolean union(T data1, T data2){
+        DSElement<T> element1 = elements.get(data1);
+        DSElement<T> element2 = elements.get(data2);
         if(element1 == null || element2 == null || element1.equals(element2))
             return false;
 
@@ -55,22 +63,33 @@ public class DisjointSet {
         return true;
     }
 
-    public long find(long data){
+    public T find(T data){
         if(elements.get(data) != null)
             return find(elements.get(data)).data;
-        return Long.MIN_VALUE;
+        return null;
     }
 
-    public DSElement find(DSElement current){
-        DSElement currParent = current.parent;
+    public DSElement<T> find(DSElement<T> current){
+        DSElement<T> currParent = current.parent;
         if(currParent == current)
             return currParent;
         current.parent = find(currParent);
         return currParent;
     }
 
+    public boolean isConnected(T data1, T data2){
+        T rep1 = find(data1);
+        T rep2 = find(data2);
+        if (rep1.equals(rep2))
+            return true;
+        return false;
+    }
+
     public static void main(String[] args) {
-        DisjointSet set = new DisjointSet();
+        System.out.println("Testing Disjoint set with Integer type elements");
+        System.out.println("-----------------------------------------------\n");
+
+        DisjointSet<Integer> set = new DisjointSet<>();
         set.insert(1);
         set.insert(2);
         set.insert(3);
@@ -90,5 +109,36 @@ public class DisjointSet {
         System.out.println("The representative of the set with element 8 is : " + set.find(8));
         System.out.println("The representative of the set with element 13 is : " + set.find(13));
         System.out.println("The representative of the set with element 2 is : " + set.find(2));
+
+        System.out.println("\nTesting Disjoint set with Vertex type elements");
+        System.out.println("-----------------------------------------------\n");
+        DisjointSet<Vertex> vSet = new DisjointSet<>();
+        Vertex V1 = new Vertex("V1");
+        Vertex V2 = new Vertex("V2");
+        Vertex V3 = new Vertex("V3");
+        Vertex V5 = new Vertex("V5");
+        Vertex V8 = new Vertex("V8");
+        Vertex V13 = new Vertex("V13");
+        Vertex V21 = new Vertex("V21");
+
+        vSet.insert(V1);
+        vSet.insert(V2);
+        vSet.insert(V3);
+        vSet.insert(V5);
+        vSet.insert(V8);
+        vSet.insert(V13);
+        vSet.insert(V21);
+
+        vSet.union(V1, V21);
+        vSet.union(V2, V13);
+        vSet.union(V3, V8);
+        vSet.union(V1, V8);
+
+        System.out.println("The representative of the set with vertex V5 is : " + vSet.find(V5));
+        System.out.println("The representative of the set with vertex V3 is : " + vSet.find(V3));
+        System.out.println("The representative of the set with vertex V21 is : " + vSet.find(V21));
+        System.out.println("The representative of the set with vertex V8 is : " + vSet.find(V8));
+        System.out.println("The representative of the set with vertex V13 is : " + vSet.find(V13));
+        System.out.println("The representative of the set with vertex V2 is : " + vSet.find(V2));
     }
 }
