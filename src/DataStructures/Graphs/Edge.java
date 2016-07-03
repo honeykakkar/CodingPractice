@@ -58,4 +58,9 @@ public class Edge implements Comparable<Edge> {
                 this.destination.equals(other.destination) &&
                 this.weight == other.weight;
     }
+
+    @Override
+    public String toString() {
+        return "Source:" + this.source.toString() + "\tDestination:" + this.destination.toString() + "\tWeight:" + this.weight;
+    }
 }

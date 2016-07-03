@@ -14,7 +14,7 @@ public class Vertex {
     private String name;
     public boolean visited;
 
-    Vertex(String name){
+    public Vertex(String name){
         this.neighbours = new HashSet<>();
         this.name = name;
         this.visited = false;
@@ -54,6 +54,6 @@ public class Vertex {
         if (!(obj instanceof Vertex))
             return false;
         Vertex Obj = (Vertex)obj;
-        return this.getAllNeighbours().equals(Obj.getAllNeighbours()) && Objects.equals(this.name, Obj.name);
+        return Objects.equals(this.name, Obj.name) && this.getAllNeighbours().equals(Obj.getAllNeighbours());
     }
 }

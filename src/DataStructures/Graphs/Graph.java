@@ -1,7 +1,6 @@
 package DataStructures.Graphs;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Author: honey
@@ -79,13 +78,40 @@ public class Graph {
         }
     }
 
-    public HashSet<Edge> getEdges(){
+    public HashSet<Edge> getEdges() {
         HashSet<Edge> edges = new HashSet<>();
-        for (Vertex current : adjacencyList.keySet()){
-            for (Edge edge: current.getAllNeighbours())
-                edges.add(edge);
+        if (this.graphType == GraphType.DIRECTED) {
+            for (Vertex current : adjacencyList.keySet()) {
+                for (Edge edge : current.getAllNeighbours())
+                    edges.add(edge);
+            }
+        }
+
+        if (this.graphType == GraphType.UNDIRECTED) {
+            ArrayList<Edge> edgeList = new ArrayList<>();
+            boolean add = true;
+            for (Vertex current : adjacencyList.keySet()) {
+                for (Edge edge : current.getAllNeighbours()) {
+                    add = true;
+                    for (int i = 0; i < edgeList.size(); ++i) {
+                        Edge prevEdge = edgeList.get(i);
+                        if (edge.getDestination() == prevEdge.getSource() && edge.getSource() == prevEdge.getDestination()) {
+                            add = false;
+                            break;
+                        }
+                    }
+                    if (add) {
+                        edgeList.add(edge);
+                        edges.add(edge);
+                    }
+                }
+            }
         }
         return edges;
+    }
+
+    public Collection<Vertex> getVertices(){
+        return vertices.values();
     }
 
     public boolean hasVertex(String vName){
@@ -99,11 +125,12 @@ public class Graph {
     }
 
     public static void main(String[] args) {
-        Graph testGraph = new Graph(GraphType.DIRECTED);
+        Graph testGraph = new Graph(GraphType.UNDIRECTED);
         testGraph.addEdge("V1","V2",1);
         testGraph.addEdge("V2","V3",1);
         testGraph.addEdge("V1","V3",2);
         testGraph.addEdge("V3","V4",1);
         System.out.println(testGraph.toString());
+        System.out.println(testGraph.getEdges().size());
     }
 }
