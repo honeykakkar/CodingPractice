@@ -31,6 +31,10 @@ public class Graph {
         this.graphType = graphType;
     }
 
+    public HashMap<Vertex, HashSet<Vertex>> getAdjacencyList() {
+        return adjacencyList;
+    }
+
     public Vertex addVertex(String vName){
         Vertex newV = null;
         if(!vertices.containsKey(vName)){
@@ -81,15 +85,13 @@ public class Graph {
     public HashSet<Edge> getEdges() {
         HashSet<Edge> edges = new HashSet<>();
         if (this.graphType == GraphType.DIRECTED) {
-            for (Vertex current : adjacencyList.keySet()) {
-                for (Edge edge : current.getAllNeighbours())
-                    edges.add(edge);
-            }
+            for (Vertex current : adjacencyList.keySet())
+                edges.addAll(current.getAllNeighbours());
         }
 
         if (this.graphType == GraphType.UNDIRECTED) {
             ArrayList<Edge> edgeList = new ArrayList<>();
-            boolean add = true;
+            boolean add;
             for (Vertex current : adjacencyList.keySet()) {
                 for (Edge edge : current.getAllNeighbours()) {
                     add = true;
@@ -122,6 +124,18 @@ public class Graph {
         if(hasVertex(vName))
             return vertices.get(vName);
         return null;
+    }
+
+    HashMap<Vertex, Integer> getIndegrees(){
+        HashMap<Vertex, Integer> inDegrees = new HashMap<>();
+        for (Vertex v : this.getVertices())
+            inDegrees.put(v,0);
+        for (Edge edge : this.getEdges()){
+            Vertex dest = edge.getDestination();
+            Integer prevValue = inDegrees.get(dest);
+            inDegrees.put(dest, prevValue + 1);
+        }
+        return  inDegrees;
     }
 
     public static void main(String[] args) {

@@ -11,12 +11,12 @@ import java.util.HashMap;
  */
 public class DisjointSet<T> {
 
-    class DSElement<T>{
-        T data;
+    class DSElement<E>{
+        E data;
         int rank;
-        DSElement<T> parent;
+        DSElement<E> parent;
 
-        public DSElement(T data, int rank) {
+        public DSElement(E data, int rank) {
             this.data = data;
             this.rank = rank;
             this.parent = null;
@@ -80,15 +80,12 @@ public class DisjointSet<T> {
     public boolean isConnected(T data1, T data2){
         T rep1 = find(data1);
         T rep2 = find(data2);
-        if (rep1.equals(rep2))
-            return true;
-        return false;
+        return rep1.equals(rep2);
     }
 
     public static void main(String[] args) {
         System.out.println("Testing Disjoint set with Integer type elements");
         System.out.println("-----------------------------------------------\n");
-
         DisjointSet<Integer> set = new DisjointSet<>();
         set.insert(1);
         set.insert(2);
@@ -97,11 +94,14 @@ public class DisjointSet<T> {
         set.insert(8);
         set.insert(13);
         set.insert(21);
+        set.insert(34);
 
         set.union(1,21);
         set.union(2,13);
         set.union(3,8);
         set.union(1,8);
+        set.union(3,5);
+        set.union(3,34);
 
         System.out.println("The representative of the set with element 5 is : " + set.find(5));
         System.out.println("The representative of the set with element 3 is : " + set.find(3));
@@ -109,6 +109,13 @@ public class DisjointSet<T> {
         System.out.println("The representative of the set with element 8 is : " + set.find(8));
         System.out.println("The representative of the set with element 13 is : " + set.find(13));
         System.out.println("The representative of the set with element 2 is : " + set.find(2));
+
+        System.out.println(set.isConnected(8,3));
+        System.out.println(set.isConnected(34,5));
+        System.out.println(set.isConnected(2,3));
+        System.out.println(set.isConnected(2,13));
+        System.out.println(set.isConnected(21,13));
+        System.out.println(set.isConnected(21,8));
 
         System.out.println("\nTesting Disjoint set with Vertex type elements");
         System.out.println("-----------------------------------------------\n");
@@ -120,6 +127,7 @@ public class DisjointSet<T> {
         Vertex V8 = new Vertex("V8");
         Vertex V13 = new Vertex("V13");
         Vertex V21 = new Vertex("V21");
+        Vertex V34 = new Vertex("V34");
 
         vSet.insert(V1);
         vSet.insert(V2);
@@ -128,11 +136,14 @@ public class DisjointSet<T> {
         vSet.insert(V8);
         vSet.insert(V13);
         vSet.insert(V21);
+        vSet.insert(V34);
 
         vSet.union(V1, V21);
         vSet.union(V2, V13);
         vSet.union(V3, V8);
         vSet.union(V1, V8);
+        vSet.union(V3,V5);
+        vSet.union(V3,V34);
 
         System.out.println("The representative of the set with vertex V5 is : " + vSet.find(V5));
         System.out.println("The representative of the set with vertex V3 is : " + vSet.find(V3));
@@ -140,5 +151,12 @@ public class DisjointSet<T> {
         System.out.println("The representative of the set with vertex V8 is : " + vSet.find(V8));
         System.out.println("The representative of the set with vertex V13 is : " + vSet.find(V13));
         System.out.println("The representative of the set with vertex V2 is : " + vSet.find(V2));
+
+        System.out.println(vSet.isConnected(V8,V3));
+        System.out.println(vSet.isConnected(V34,V5));
+        System.out.println(vSet.isConnected(V2,V3));
+        System.out.println(vSet.isConnected(V2,V13));
+        System.out.println(vSet.isConnected(V21,V13));
+        System.out.println(vSet.isConnected(V21,V8));
     }
 }
