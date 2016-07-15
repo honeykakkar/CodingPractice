@@ -55,8 +55,7 @@ public class DepthFirstSearch {
 
             visited.put(top, true);
             System.out.print(top + "  ");
-            for (Vertex neighbour : graph.getAdjacencyList().get(top))
-                stack.add(neighbour);
+            stack.addAll(graph.getAdjacencyList().get(top));
         }
     }
 

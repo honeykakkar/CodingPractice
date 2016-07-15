@@ -17,7 +17,7 @@ public class TopologicalSort {
     void topologicalSort(Graph graph, Vertex current, HashMap<Vertex, Boolean> visited, Stack<Vertex> stack){
         visited.put(current, true);
         for (Vertex neighbour : graph.getAdjacencyList().get(current)){
-            if(visited.get(neighbour) == false)
+            if(!visited.get(neighbour))
                 topologicalSort(graph, neighbour, visited, stack);
         }
         stack.push(current);
@@ -31,7 +31,7 @@ public class TopologicalSort {
             visited.put(v, false);
         System.out.print("\nOne of the topological sorts of graph is: ");
         for (Vertex v : graph.getVertices()){
-            if(visited.get(v) == false)
+            if(!visited.get(v))
                 topologicalSort(graph, v, visited, stack);
         }
 
@@ -43,7 +43,7 @@ public class TopologicalSort {
     void getAllTopSorts(Graph graph, ArrayList<Vertex> topSort, HashMap<Vertex, Boolean> visited, HashMap<Vertex, Integer> inDegrees){
         boolean flag = false;
         for (Vertex currV : graph.getVertices()){
-            if(inDegrees.get(currV) == 0 && visited.get(currV) == false){
+            if(inDegrees.get(currV) == 0 && !visited.get(currV)){
                 for(Vertex neighbour : graph.getAdjacencyList().get(currV)){
                     Integer prevValue = inDegrees.get(neighbour);
                     inDegrees.put(neighbour, prevValue - 1);

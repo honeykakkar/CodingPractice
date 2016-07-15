@@ -39,8 +39,7 @@ public class BreadthFirstSearch {
 
             visited.put(head, true);
             System.out.print(head + "  ");
-            for (Vertex neighbour : graph.getAdjacencyList().get(head))
-                queue.add(neighbour);
+            queue.addAll(graph.getAdjacencyList().get(head));
         }
     }
 

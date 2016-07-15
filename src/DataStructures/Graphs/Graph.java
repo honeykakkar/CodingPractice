@@ -82,6 +82,14 @@ public class Graph {
         }
     }
 
+    public Edge getEdge(Vertex source, Vertex dest){
+        for (Edge edge : getEdges()){
+            if(edge.getSource() == source && edge.getDestination() == dest)
+                return edge;
+        }
+        return null;
+    }
+
     public HashSet<Edge> getEdges() {
         HashSet<Edge> edges = new HashSet<>();
         if (this.graphType == GraphType.DIRECTED) {
@@ -95,8 +103,7 @@ public class Graph {
             for (Vertex current : adjacencyList.keySet()) {
                 for (Edge edge : current.getAllNeighbours()) {
                     add = true;
-                    for (int i = 0; i < edgeList.size(); ++i) {
-                        Edge prevEdge = edgeList.get(i);
+                    for (Edge prevEdge : edgeList) {
                         if (edge.getDestination() == prevEdge.getSource() && edge.getSource() == prevEdge.getDestination()) {
                             add = false;
                             break;
