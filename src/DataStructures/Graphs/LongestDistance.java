@@ -74,6 +74,7 @@ public class LongestDistance {
         testGraph.addEdge("4", "3", -2);
         testGraph.addEdge("5", "0", 3);
         testGraph.addEdge("5", "2", 5);
+        System.out.println(testGraph.toString());
         LongestDistance currObject = new LongestDistance();
         Vertex source = testGraph.getVertex("5");
         long startTime = System.nanoTime();
