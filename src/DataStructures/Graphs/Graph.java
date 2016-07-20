@@ -35,6 +35,10 @@ public class Graph {
         return adjacencyList;
     }
 
+    public GraphType getGraphType() {
+        return graphType;
+    }
+
     public Vertex addVertex(String vName){
         Vertex newV = null;
         if(!vertices.containsKey(vName)){
@@ -149,9 +153,19 @@ public class Graph {
         Graph testGraph = new Graph(GraphType.UNDIRECTED);
         testGraph.addEdge("V1","V2",1);
         testGraph.addEdge("V2","V3",1);
-        testGraph.addEdge("V1","V3",2);
+        testGraph.addEdge("V1","V3",1);
         testGraph.addEdge("V3","V4",1);
         System.out.println(testGraph.toString());
-        System.out.println(testGraph.getEdges().size());
+        System.out.println("The graph contains " + testGraph.getEdges().size() + " edges.\n");
+
+        Graph testGraph1 = new Graph(GraphType.DIRECTED);
+        testGraph1.addEdge("V0","V1",1);
+        testGraph1.addEdge("V0","V2",1);
+        testGraph1.addEdge("V2","V0",1);
+        testGraph1.addEdge("V1","V2",1);
+        testGraph1.addEdge("V2","V3",1);
+        testGraph1.addEdge("V3","V3",1);
+        System.out.println(testGraph1.toString());
+        System.out.println("The graph contains " + testGraph1.getEdges().size() + " edges.");
     }
 }
