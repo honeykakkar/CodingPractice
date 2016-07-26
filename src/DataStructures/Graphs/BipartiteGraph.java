@@ -53,14 +53,12 @@ public class BipartiteGraph {
         System.out.println("The graph is " + ((result)? "" : "not ") + "a bipartite graph");
         System.out.println("\nThe algorithm took " + (endTime - startTime) + " nanoseconds.\n");
 
-        Graph testGraph1 = new Graph(GraphType.DIRECTED);
+        Graph testGraph1 = new Graph(GraphType.UNDIRECTED);
         testGraph1.addEdge("0", "1", 1);
-        testGraph1.addEdge("0", "2", 1);
-        testGraph1.addEdge("0", "3", 1);
-        testGraph1.addEdge("1", "3", 1);
+        testGraph1.addEdge("2", "1", 1);
         testGraph1.addEdge("2", "3", 1);
-        testGraph1.addEdge("4", "1", 1);
-        testGraph1.addEdge("4", "2", 1);
+        testGraph1.addEdge("2", "5", 1);
+        testGraph1.addEdge("4", "5", 1);
         System.out.println(testGraph1);
         startTime = System.nanoTime();
         result = currObject.isBipartite(testGraph1, testGraph1.getVertex("0"));
@@ -68,5 +66,4 @@ public class BipartiteGraph {
         System.out.println("The graph is " + ((result)? "" : "not ") + "a bipartite graph");
         System.out.println("\nThe algorithm took " + (endTime - startTime) + " nanoseconds.");
     }
-
 }

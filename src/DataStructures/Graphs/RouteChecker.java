@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class RouteChecker {
 
+    // This method performs BFS to check if there exists any path between two vertices
     private boolean ifRouteExists(Vertex source, Vertex dest){
         if(source == dest)
             return true;
@@ -26,6 +27,7 @@ public class RouteChecker {
         visitQ.offer(source);
         while(!visitQ.isEmpty()){
             Vertex current = visitQ.remove();
+            current.visited = true;
             for(Edge outEdge : current.getAllNeighbours()){
                 Vertex end = outEdge.getDestination();
                 if(!end.visited){
@@ -35,7 +37,6 @@ public class RouteChecker {
                         visitQ.add(end);
                 }
             }
-            current.visited = true;
         }
         return false;
     }
