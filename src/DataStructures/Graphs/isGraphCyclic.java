@@ -1,5 +1,4 @@
 package DataStructures.Graphs;
-
 import java.util.HashMap;
 
 /**
@@ -55,6 +54,20 @@ public class isGraphCyclic {
         return false;
     }
 
+    public boolean isCyclicUDG(Graph graph){
+        UnionFindAlgo<Vertex> disjointSet = new UnionFindAlgo<>();
+        for(Vertex V : graph.getVertices())
+            disjointSet.insert(V);
+        for(Edge E : graph.getEdges()){
+            Vertex sourceRep = disjointSet.find(E.getSource());
+            Vertex destRep = disjointSet.find(E.getDestination());
+            if(sourceRep == destRep)
+                return true;
+            disjointSet.union(E.getSource(), E.getDestination());
+        }
+        return false;
+    }
+
     private boolean isCyclicUndirected(Graph graph){
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
@@ -88,13 +101,17 @@ public class isGraphCyclic {
         System.out.println("The graph does" + (result?" ":" not ") + "contain a cycle.\n");
 
         Graph testGraph1 = new Graph(GraphType.UNDIRECTED);
-        testGraph1.addEdge("V0", "V1", 1);
+        /*testGraph1.addEdge("V0", "V1", 1);
         testGraph1.addEdge("V1", "V2", 1);
         testGraph1.addEdge("V2", "V3", 1);
-        testGraph1.addEdge("V3", "V4", 1);
+        testGraph1.addEdge("V3", "V4", 1);*/
+        testGraph1.addEdge("V0", "V1", 1);
+        testGraph1.addEdge("V1", "V2", 1);
+        testGraph1.addEdge("V2", "V0", 1);
         System.out.println(testGraph1.toString());
-        currentObj = new isGraphCyclic();
         result = currentObj.isCyclic(testGraph1);
+        System.out.println("The graph does" + (result?" ":" not ") + "contain a cycle.");
+        result = currentObj.isCyclicUDG(testGraph1);
         System.out.println("The graph does" + (result?" ":" not ") + "contain a cycle.");
     }
 }
