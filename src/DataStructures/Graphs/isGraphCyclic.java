@@ -55,9 +55,8 @@ public class isGraphCyclic {
     }
 
     public boolean isCyclicUDG(Graph graph){
-        UnionFindAlgo<Vertex> disjointSet = new UnionFindAlgo<>();
-        for(Vertex V : graph.getVertices())
-            disjointSet.insert(V);
+        UnionFindAlgo UFAlgo = new UnionFindAlgo();
+        UnionFindAlgo.DisjointSet disjointSet = UFAlgo.new DisjointSet(graph);
         for(Edge E : graph.getEdges()){
             Vertex sourceRep = disjointSet.find(E.getSource());
             Vertex destRep = disjointSet.find(E.getDestination());
@@ -101,16 +100,17 @@ public class isGraphCyclic {
         System.out.println("The graph does" + (result?" ":" not ") + "contain a cycle.\n");
 
         Graph testGraph1 = new Graph(GraphType.UNDIRECTED);
-        /*testGraph1.addEdge("V0", "V1", 1);
-        testGraph1.addEdge("V1", "V2", 1);
-        testGraph1.addEdge("V2", "V3", 1);
-        testGraph1.addEdge("V3", "V4", 1);*/
         testGraph1.addEdge("V0", "V1", 1);
         testGraph1.addEdge("V1", "V2", 1);
-        testGraph1.addEdge("V2", "V0", 1);
+        testGraph1.addEdge("V2", "V3", 1);
+        testGraph1.addEdge("V3", "V4", 1);
+        /*testGraph1.addEdge("V0", "V1", 1);
+        testGraph1.addEdge("V1", "V2", 1);
+        testGraph1.addEdge("V2", "V0", 1);*/
         System.out.println(testGraph1.toString());
         result = currentObj.isCyclic(testGraph1);
         System.out.println("The graph does" + (result?" ":" not ") + "contain a cycle.");
+        System.out.println("\nDetecting cycle using Union-Find algorithm :");
         result = currentObj.isCyclicUDG(testGraph1);
         System.out.println("The graph does" + (result?" ":" not ") + "contain a cycle.");
     }

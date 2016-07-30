@@ -7,108 +7,69 @@ import java.util.HashMap;
  * Project: CodingPractice
  * Date created: 6/22/2016
  */
-public class UnionFindAlgo<T> {
+public class UnionFindAlgo {
 
-    class DSElement<E>{
-        E data;
-        DSElement<E> parent;
+    class DSElement{
+        Vertex parent;
+        int rank;
+    }
 
-        public DSElement(E data, int rank) {
-            this.data = data;
-            this.parent = null;
+    class DisjointSet{
+        HashMap<Vertex, DSElement> disjointSet;
+
+        DisjointSet(){
+            disjointSet = new HashMap<>();
         }
 
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof DSElement))
-                return false;
-            DSElement dsObj = (DSElement) obj;
-            return this.parent == dsObj.parent && this.data == dsObj.data;
+        DisjointSet(Graph graph){
+            disjointSet = new HashMap<>();
+            for(Vertex vertex : graph.getVertices()){
+                disjointSet.put(vertex, new DSElement());
+                disjointSet.get(vertex).parent = vertex;
+                disjointSet.get(vertex).rank = 0;
+            }
         }
-    }
 
-    HashMap<T, DSElement<T>> elements;
+        Vertex find(Vertex vertex){
+            if(disjointSet.get(vertex).parent != vertex)
+                disjointSet.get(vertex).parent = find(disjointSet.get(vertex).parent);
 
-    public UnionFindAlgo() {
-        elements = new HashMap<>();
-    }
+            return disjointSet.get(vertex).parent;
+        }
 
-    public UnionFindAlgo(int N) {
-        elements = new HashMap<T, DSElement<T>>(N);
-    }
+        void union(Vertex v1, Vertex v2){
+            Vertex v1Parent = find(v1);
+            Vertex v2Parent = find(v2);
 
-    public void insert(T newData){
-        DSElement<T> newElement = new DSElement<>(newData, 0);
-        newElement.parent = newElement;
-        elements.put(newData, newElement);
-    }
+            if(disjointSet.get(v1Parent).rank < disjointSet.get(v2Parent).rank)
+                disjointSet.get(v1Parent).parent = v2Parent;
+            else
+                if(disjointSet.get(v1Parent).rank > disjointSet.get(v2Parent).rank)
+                    disjointSet.get(v2Parent).parent = v1Parent;
+            else {
+                    disjointSet.get(v2Parent).parent = v1Parent;
+                    ++disjointSet.get(v1Parent).rank;
+                }
+        }
 
-    public boolean union(T data1, T data2){
-        DSElement<T> element1 = elements.get(data1);
-        DSElement<T> element2 = elements.get(data2);
-        if(element1 == null || element2 == null || element1.equals(element2))
-            return false;
-        element1.parent = element2;
-        return true;
-    }
+        void insert(Vertex vertex) {
+            disjointSet.put(vertex, new DSElement());
+            disjointSet.get(vertex).parent = vertex;
+            disjointSet.get(vertex).rank = 0;
+        }
 
-    public T find(T data){
-        if(elements.get(data) != null)
-            return find(elements.get(data)).data;
-        return null;
-    }
-
-    public DSElement<T> find(DSElement<T> current){
-        DSElement<T> currParent = current.parent;
-        if(currParent == current)
-            return currParent;
-        current.parent = find(currParent);
-        return currParent;
-    }
-
-    public boolean isConnected(T data1, T data2){
-        T rep1 = find(data1);
-        T rep2 = find(data2);
-        return rep1.equals(rep2);
+        boolean isConnected(Vertex v1, Vertex v2){
+            Vertex rep1 = find(v1);
+            Vertex rep2 = find(v2);
+            return rep1.equals(rep2);
+        }
     }
 
     public static void main(String[] args) {
-        System.out.println("Testing Disjoint set with Integer type elements");
-        System.out.println("-----------------------------------------------\n");
-        UnionFindAlgo<Integer> set = new UnionFindAlgo<>();
-        set.insert(1);
-        set.insert(2);
-        set.insert(3);
-        set.insert(5);
-        set.insert(8);
-        set.insert(13);
-        set.insert(21);
-        set.insert(34);
-
-        set.union(1,21);
-        set.union(2,13);
-        set.union(3,8);
-        set.union(1,8);
-        set.union(3,5);
-        set.union(3,34);
-
-        System.out.println("The representative of the set with element 5 is : " + set.find(5));
-        System.out.println("The representative of the set with element 3 is : " + set.find(3));
-        System.out.println("The representative of the set with element 21 is : " + set.find(21));
-        System.out.println("The representative of the set with element 8 is : " + set.find(8));
-        System.out.println("The representative of the set with element 13 is : " + set.find(13));
-        System.out.println("The representative of the set with element 2 is : " + set.find(2));
-
-        System.out.println(set.isConnected(8,3));
-        System.out.println(set.isConnected(34,5));
-        System.out.println(set.isConnected(2,3));
-        System.out.println(set.isConnected(2,13));
-        System.out.println(set.isConnected(21,13));
-        System.out.println(set.isConnected(21,8));
-
         System.out.println("\nTesting Disjoint set with Vertex type elements");
         System.out.println("-----------------------------------------------\n");
-        UnionFindAlgo<Vertex> vSet = new UnionFindAlgo<>();
+        UnionFindAlgo UFAlgo = new UnionFindAlgo();
+        DisjointSet vSet = UFAlgo.new DisjointSet();
         Vertex V1 = new Vertex("V1");
         Vertex V2 = new Vertex("V2");
         Vertex V3 = new Vertex("V3");
