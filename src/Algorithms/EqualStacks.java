@@ -76,4 +76,3 @@ public class EqualStacks {
         System.out.println("\nThe maximum height at which all stacks will be of equal height is " + heights[0]);
     }
 }
-
