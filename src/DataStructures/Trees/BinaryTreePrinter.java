@@ -125,8 +125,8 @@ public class BinaryTreePrinter {
         //convert into string
         StringBuilder ret = new StringBuilder();
         for (char[] aScreen : screen) {
-            for (int j = 0; j < aScreen.length; j++) {
-                ret.append(aScreen[j]);
+            for (char anAScreen : aScreen) {
+                ret.append(anAScreen);
             }
             ret.append("\n");
         }
@@ -135,18 +135,16 @@ public class BinaryTreePrinter {
 
 
 
-    public static void print(BinaryTreeNode head, int nodePrintLength) {
-        print(head,getHeight(head),nodePrintLength);
+    public static void print(BinaryTreeNode head) {
+        print(head,getHeight(head), 5);
     }
     public static void print(BinaryTreeNode head, int treeHeight, int nodePrintLength) {
         // get printout
         char [][] screen = getCharArray(head, treeHeight, nodePrintLength);
 
-        //print
-        char [] tmep = new char[1];
         for (char[] aScreen : screen) {
-            for (int j = 0; j < aScreen.length; j++) {
-                char toPrint = aScreen[j] == SPACE_PLACEHOLDER ? ' ' : aScreen[j]; // replace uninitialized with ' '
+            for (char anAScreen : aScreen) {
+                char toPrint = anAScreen == SPACE_PLACEHOLDER ? ' ' : anAScreen; // replace uninitialized with ' '
                 System.out.print(toPrint);
             }
             System.out.print("\n");

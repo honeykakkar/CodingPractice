@@ -30,7 +30,7 @@ public class BinaryTree {
     }
 
     public void displayTree(){
-        BinaryTreePrinter.print(this.root, 5);
+        BinaryTreePrinter.print(this.root);
     }
 
     public void insert(int... newData){

@@ -29,7 +29,7 @@ public class checkBST {
         long startTime = System.nanoTime();
         boolean result = currObject.isBST(BT.getRoot());
         long endTime = System.nanoTime();
-        System.out.println("The given binary tree is " + (result == true? "" : "not ") + "a binary search tree.");
+        System.out.println("The given binary tree is " + (result ? "" : "not ") + "a binary search tree.");
         System.out.println("\nThe algorithm took " + (endTime - startTime) + " nanoseconds.");
 
     }

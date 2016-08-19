@@ -45,7 +45,7 @@ public class BinarySearchTree {
     }
 
     public void displayTree(){
-        BinaryTreePrinter.print(this.root, 5);
+        BinaryTreePrinter.print(this.root);
     }
 
     public void getPaths(BinaryTreeNode currentNode, ArrayList<ArrayList<Integer>> allPaths, ArrayList<Integer> path, int pathIndex){
