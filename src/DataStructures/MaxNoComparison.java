@@ -3,8 +3,11 @@ package DataStructures;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/5/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/5/2016
  */
+
 public class MaxNoComparison {
 
     private int sign(int i){

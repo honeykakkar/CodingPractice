@@ -15,6 +15,7 @@ import java.util.HashSet;
 
 public class RemoveDuplicates {
 
+    @SuppressWarnings("unchecked")
     private void removeDuplicates(LinkedListNode head){
         if(head == null || head.getNext() == null)
             return;

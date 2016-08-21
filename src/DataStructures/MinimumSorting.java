@@ -1,11 +1,12 @@
 package DataStructures;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/6/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/6/2016
  */
 
 /*Given an array of integers, write a method to find indices m and n such that if you

@@ -3,7 +3,9 @@ package DataStructures;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/3/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/3/2016
  */
 
 // Implement an algorithm to determine if a string has all unique characters

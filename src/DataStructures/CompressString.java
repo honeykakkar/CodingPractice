@@ -3,7 +3,9 @@ package DataStructures;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/4/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/4/2016
  */
 
   /*Implement a method to perform basic string compression using the counts of
