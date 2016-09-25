@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/12/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/12/2016
  */
+
 public class PairsofSum {
 
     private void pairsOfSum(ArrayList<Integer> array, int sum){

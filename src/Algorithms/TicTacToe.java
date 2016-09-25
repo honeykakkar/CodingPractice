@@ -3,7 +3,9 @@ package Algorithms;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/5/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/5/2016
  */
 
 // Design an algorithm to figure out if someone has won a game of tic-tac-toe.

@@ -1,6 +1,6 @@
 package Algorithms;
 
-/**
+/*
  * Author: honey
  * Date created: 6/14/2016
  */

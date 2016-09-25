@@ -3,7 +3,9 @@ package Algorithms;
 import java.util.Scanner;
 
 /**
- * Created by honey on 6/8/2016.
+ * Author: honey
+ * Project: CodingPractice
+ * Date created: 6/8/2016
  */
 
 // Given any integer, print an English phrase that describes the integer (e.g., "One
