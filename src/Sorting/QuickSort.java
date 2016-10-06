@@ -20,15 +20,15 @@ public class QuickSort<T extends Comparable<T>> {
     // using Lomuto partition scheme
     public int partition(ArrayList<T> array, int l, int r){
         T pivot = array.get(r);
-        int i = l;
-        for(int j = l; j<=r-1; ++j){
-            if(array.get(j).compareTo(pivot) <= 0){
-                swap(array, i, j);
-                ++i;
+        int dest = l;
+        for(int src = l; src < r; ++src){
+            if(array.get(src).compareTo(pivot) <= 0){
+                swap(array, dest, src);
+                ++dest;
             }
         }
-        swap(array, i, r);
-        return i;
+        swap(array, dest, r);
+        return dest;
     }
 
     public void swap(ArrayList<T> array, int first, int second){
@@ -44,31 +44,69 @@ public class QuickSort<T extends Comparable<T>> {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the size of list of integers:");
-        int n = sc.nextInt();
-
+        int n = 30;
+        long startTime, endTime;
+        // Testing when integers are in reverse order
         ArrayList<Integer> intArray = new ArrayList<>(n);
-        for (int i = 0; i < n; ++i) {
-            System.out.println("Enter element " + (i + 1) + " of list:");
-            intArray.add(i, sc.nextInt());
-        }
-        QuickSort<Integer> intQS = new QuickSort<>();
-        intQS.quickSort(intArray, 0, n - 1);
-        System.out.println("\nDisplaying elements in the array after performing quicksort:");
-        intQS.display(intArray);
+        for (int i = 0; i < n; ++i)
+            intArray.add(n - i);
+        QuickSort<Integer> intSorter = new QuickSort<>();
+        System.out.println("Testing integers in reverse order:");
+        System.out.println("Before performing quick sort:");
+        intSorter.display(intArray);
+        startTime = System.nanoTime();
+        intSorter.quickSort(intArray, 0, intArray.size() - 1);
+        endTime = System.nanoTime();
+        System.out.println("After performing quick sort:");
+        intSorter.display(intArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
 
-        System.out.println("\nEnter the size of list of strings:");
-        n = sc.nextInt();
-        sc.nextLine();
-        ArrayList<String> stringArray = new ArrayList<>(n);
-        for (int i = 0; i < n; ++i) {
-            System.out.println("Enter element " + (i + 1) + " of list:");
-            stringArray.add(i, sc.nextLine());
-        }
-        QuickSort<String> stringQS = new QuickSort<>();
-        stringQS.quickSort(stringArray, 0, n-1);
-        System.out.println("\nDisplaying elements in the array after performing quicksort:");
-        stringQS.display(stringArray);
+        // Testing when integers are in no order
+        intArray = new ArrayList<>(n);
+        int[] randomInts = new Random().ints(1, 31).distinct().limit(30).toArray();
+        for (int randomInt : randomInts) intArray.add(randomInt);
+        System.out.println("\nTesting integers in random order:");
+        System.out.println("Before performing quick sort:");
+        intSorter.display(intArray);
+        startTime = System.nanoTime();
+        intSorter.quickSort(intArray, 0, intArray.size() - 1);
+        System.out.println("After performing quick sort:");
+        endTime = System.nanoTime();
+        intSorter.display(intArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
+
+        n = 26;
+        // Testing when characters are already sorted
+        ArrayList<Character> charArray = new ArrayList<>(n);
+        for (int i = 0; i < n; ++i)
+            charArray.add((char) (65 + i));
+        QuickSort<Character> charSorter = new QuickSort<>();
+        System.out.println("\nTesting characters in sorted order:");
+        System.out.println("Before performing quick sort:");
+        charSorter.display(charArray);
+        startTime = System.nanoTime();
+        charSorter.quickSort(charArray, 0, charArray.size() - 1);
+        endTime = System.nanoTime();
+        System.out.println("After performing quick sort:");
+        charSorter.display(charArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
+
+        // Testing when doubles are in random order
+        // It is advised to use double instead of float
+        // as JAVA, by default, uses double to represent its floating-point numerals
+
+        double[] randomArray = new Random().doubles(1, 21).distinct().limit(50).toArray();
+        ArrayList<Double> doubleArray = new ArrayList<>(50);
+        for (double aRandomArray : randomArray) doubleArray.add(aRandomArray);
+        QuickSort<Double> doubleSorter = new QuickSort<>();
+        System.out.println("\nTesting doubles in random order:");
+        System.out.println("Before performing quick sort:");
+        doubleSorter.display(doubleArray);
+        startTime = System.nanoTime();
+        doubleSorter.quickSort(doubleArray, 0, doubleArray.size() - 1);
+        endTime = System.nanoTime();
+        System.out.println("After performing quick sort:");
+        doubleSorter.display(doubleArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
     }
 }

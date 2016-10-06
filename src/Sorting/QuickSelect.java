@@ -23,17 +23,18 @@ public class QuickSelect<T extends Comparable<T>> {
         return kthSmallest(array, l, r, array.size() - (k - 1));
     }
 
+    // using Lomuto partition scheme
     public int partition(ArrayList<T> array, int l, int r){
         T pivot = array.get(r);
-        int i = l;
-        for(int j = l; j<=r-1; ++j){
-            if(array.get(j).compareTo(pivot) <= 0){
-                swap(array, i, j);
-                ++i;
+        int dest = l;
+        for(int src = l; src < r; ++src){
+            if(array.get(src).compareTo(pivot) <= 0){
+                swap(array, dest, src);
+                ++dest;
             }
         }
-        swap(array, i, r);
-        return i;
+        swap(array, dest, r);
+        return dest;
     }
 
     public void swap(ArrayList<T> array, int first, int second){
