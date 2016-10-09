@@ -11,7 +11,7 @@ public class QuickSort<T extends Comparable<T>> {
 
     public void quickSort(ArrayList<T> array, int l, int r){
         if(l<r){
-            int pivot = partition(array, l, r);
+            int pivot = randomPartition(array, l, r);
             quickSort(array, l, pivot - 1);
             quickSort(array, pivot + 1, r);
         }
@@ -29,6 +29,17 @@ public class QuickSort<T extends Comparable<T>> {
         }
         swap(array, dest, r);
         return dest;
+    }
+
+    // Picks a random pivot element between l and r and
+    // partitions array list [l..r] around the randomly picked
+    // element using partition()
+    int randomPartition(ArrayList<T> array, int l, int r)
+    {
+        int n = r-l+1;
+        int pivot = (int)(Math.random()) % n;  // generates a random number between 0 and n for this partition
+        swap(array, l + pivot, r);
+        return partition(array, l, r);
     }
 
     public void swap(ArrayList<T> array, int first, int second){

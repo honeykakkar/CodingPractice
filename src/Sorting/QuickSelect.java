@@ -9,7 +9,7 @@ public class QuickSelect<T extends Comparable<T>> {
 
     public T kthSmallest(ArrayList<T> array, int l, int r, int k){
         if(k>0 && k<= r-l+1){
-            int pivot = partition(array, l, r);
+            int pivot = randomPartition(array, l, r);
             if(pivot - l == k - 1)
                 return array.get(pivot);
             if(pivot - l > k - 1)
@@ -35,6 +35,17 @@ public class QuickSelect<T extends Comparable<T>> {
         }
         swap(array, dest, r);
         return dest;
+    }
+
+    // Picks a random pivot element between l and r and
+    // partitions array list [l..r] around the randomly picked
+    // element using partition()
+    int randomPartition(ArrayList<T> array, int l, int r)
+    {
+        int n = r-l+1;
+        int pivot = (int)(Math.random()) % n;  // generates a random number between 0 and n for this partition
+        swap(array, l + pivot, r);
+        return partition(array, l, r);
     }
 
     public void swap(ArrayList<T> array, int first, int second){
