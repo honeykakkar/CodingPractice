@@ -1,4 +1,4 @@
-package Algorithms;
+package Mathematics;
 
 import java.util.Scanner;
 
