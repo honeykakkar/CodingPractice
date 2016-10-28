@@ -42,4 +42,9 @@ public class BinaryTreeNode {
     public BinaryTreeNode getRight() {
         return right;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.data);
+    }
 }
