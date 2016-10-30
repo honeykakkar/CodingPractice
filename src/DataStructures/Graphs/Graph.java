@@ -39,6 +39,7 @@ public class Graph {
         return graphType;
     }
 
+    // method to add an isolated vertex to graph
     public Vertex addVertex(String vName){
         Vertex newV = null;
         if(!vertices.containsKey(vName)){
@@ -62,6 +63,7 @@ public class Graph {
         return s;
     }
 
+    // method to add an edge in the graph
     public void addEdge(String source, String dest, int weight){
         Vertex vSource, vDest;
         if(hasVertex(source))
@@ -74,11 +76,11 @@ public class Graph {
         else
             vDest = addVertex(dest);
 
-        adjacencyList.get(vSource).add(vDest);
-        Edge nEdge = new Edge(vSource, vDest, weight);
-        vSource.addNeighbour(nEdge);
+        adjacencyList.get(vSource).add(vDest);  // add destination vertex in the list of vertices that can be reached from the source
+        Edge nEdge = new Edge(vSource, vDest, weight);  // create a new edge between source and destination
+        vSource.addNeighbour(nEdge);    // add the edge to the list of outgoing edges of the vertex
         ++edgesCount;
-        if(graphType == GraphType.UNDIRECTED) {
+        if(graphType == GraphType.UNDIRECTED) {     // if undirected, do the inverse of it too as source can reach destination and vice versa in case of undirected edge
             adjacencyList.get(vDest).add(vSource);
             Edge n1Edge = new Edge(vDest, vSource, weight);
             vDest.addNeighbour(n1Edge);
@@ -86,14 +88,19 @@ public class Graph {
         }
     }
 
+    // method to get edge between two given vertices
     public Edge getEdge(Vertex source, Vertex dest){
-        for (Edge edge : getEdges()){
-            if(edge.getSource() == source && edge.getDestination() == dest)
-                return edge;
+        if(source == null || dest == null || !adjacencyList.containsKey(source))
+            return null;
+
+        for (Edge outgoingEdge : source.getAllNeighbours()) {
+            if (outgoingEdge.getDestination().equals(dest))
+                return outgoingEdge;
         }
         return null;
     }
 
+    // method to get a collection of all edges in the graph
     public HashSet<Edge> getEdges() {
         HashSet<Edge> edges = new HashSet<>();
         if (this.graphType == GraphType.DIRECTED) {
@@ -123,10 +130,12 @@ public class Graph {
         return edges;
     }
 
+    // method to get the collection of all vertices of the graph
     public Collection<Vertex> getVertices(){
         return vertices.values();
     }
 
+    // method to check graph contains a particular vertex
     public boolean hasVertex(String vName){
         return vertices.containsKey(vName);
     }
@@ -137,6 +146,7 @@ public class Graph {
         return null;
     }
 
+    // method to get the in-degrees of each vertex in the graph. Out-degree is represented by size of the neighbours of vertex
     HashMap<Vertex, Integer> getIndegrees(){
         HashMap<Vertex, Integer> inDegrees = new HashMap<>();
         for (Vertex v : this.getVertices())
