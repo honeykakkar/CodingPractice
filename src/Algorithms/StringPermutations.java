@@ -51,6 +51,7 @@ public class StringPermutations {
         return new String(array);
     }
 
+    // Inefficient approach
     void getAllPerms(ArrayList<String> results, String prefix, String input){
         int length = input.length();
         if(length == 0)
@@ -61,18 +62,46 @@ public class StringPermutations {
         }
     }
 
+    void swapChars(StringBuilder input, int i, int j){
+        char temp = input.charAt(i);
+        input.setCharAt(i, input.charAt(j));
+        input.setCharAt(j, temp);
+    }
+
+    // Relatively more efficient approach
+    void getAllPerms(ArrayList<StringBuilder> results, StringBuilder input, int start, int end){
+        if(start == end) {
+            StringBuilder current = new StringBuilder(input);
+            results.add(current);
+        }
+
+        for(int i = start; i<= end; ++i){
+            swapChars(input, start, i);
+            getAllPerms(results, input, start + 1, end);
+            swapChars(input, start, i);
+        }
+    }
+
     public static void main(String[] args) {
         StringPermutations currObj = new StringPermutations();
         System.out.println("Enter the string to find its permutations:");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        System.out.printf("\nThe next lexicographical permutation of %s is: %s", input, currObj.nextLexicographical(input));
         ArrayList<String> permutations = new ArrayList<>();
         long startTime = System.nanoTime();
         currObj.getAllPerms(permutations, "", input);
         long endTime = System.nanoTime();
         System.out.printf("\nFollowing are the %d permutations of input string: %s\n", permutations.size(), input);
-        permutations.forEach(System.out::println);
+        //permutations.forEach(System.out::println);
         System.out.println("\nThe algorithm to compute all permutations took " + (endTime - startTime) + " nanoseconds.");
-        System.out.printf("\nThe next lexicographical permutation of %s is: %s", input, currObj.nextLexicographical(input));
+
+        ArrayList<StringBuilder> perms = new ArrayList<>();
+        startTime = System.nanoTime();
+        currObj.getAllPerms(perms, new StringBuilder(input), 0, input.length()-1);
+        endTime = System.nanoTime();
+        System.out.printf("\nFollowing are the %d permutations of input string: %s\n", perms.size(), input);
+        //perms.forEach(System.out::println);
+        System.out.println("\nThe algorithm to compute all permutations took " + (endTime - startTime) + " nanoseconds.");
     }
 }
