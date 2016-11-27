@@ -7,6 +7,11 @@ import java.util.*;
  * Project: CodingPractice
  * Date created: 8/8/2016
  */
+
+// The Slide Puzzle program displays a grid of tiles that must be arranged in ascending order.
+// The user can click on any tile next to the empty space to move the tile to that space.
+// The game starts with the tiles in a random arrangement.
+
 public class TilesPuzzle {
     
     int[] board;
@@ -28,6 +33,9 @@ public class TilesPuzzle {
                 System.out.println(board[i]);
         }
     }
+
+    // In efficient method to calculate the inversions. Complexity is O(n*n).
+    // Inversions can be calculated in O(nlogn) using divide and conquer like merge sort
 
     int getInversions(){
         int invCount = 0;
@@ -61,10 +69,8 @@ public class TilesPuzzle {
         if(dimension % 2 == 0 && emptyPosition % 2 == 0 && inversions % 2 != 0)
             return true;
 
-        if(dimension % 2 == 0 && emptyPosition % 2 != 0 && inversions % 2 == 0)
-            return true;
+        return dimension % 2 == 0 && emptyPosition % 2 != 0 && inversions % 2 == 0;
 
-        return false;
     }
 
     public static void main(String[] args) {

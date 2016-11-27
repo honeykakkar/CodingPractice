@@ -1,8 +1,6 @@
 package Algorithms;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Author: honey
@@ -12,18 +10,55 @@ import java.util.Scanner;
 
 public class PairsofSum {
 
-    private void pairsOfSum(ArrayList<Integer> array, int sum){
+    private List<List<Integer>> pairsOfSum_Unsorted(ArrayList<Integer> array, int sum){
         HashMap<Integer, Boolean> hashMap = new HashMap<>();
+        List<List<Integer>> pairs = new LinkedList<>();
         int i =0;
         for(int element : array) {
             if (hashMap.get(sum - element) == null)
                 hashMap.put(element, true);
             else {
+                pairs.add(new LinkedList<>());
+                pairs.get(i).add(element);
+                pairs.get(i).add(sum - element);
                 ++i;
-                System.out.println("Pair " + i + ": " + element + ", " + (sum - element));
             }
         }
-        System.out.println("\n" + i + " pairs found.");
+        System.out.println("\n" + pairs.size() + " pairs found.");
+        return pairs;
+    }
+
+    private List<List<Integer>> pairsOfSum_Sorted(ArrayList<Integer> array, int sum){
+        List<List<Integer>> pairs = new LinkedList<>();
+        int low = 0, high = array.size() - 1;
+        List<Integer> newPair;
+        while (low < high) {
+            if (array.get(low) + array.get(high) == sum) {
+                newPair = new LinkedList<>();
+                newPair.add(array.get(low));
+                newPair.add(array.get(high));
+                pairs.add(newPair);
+                while (low < high && Objects.equals(array.get(low), array.get(low + 1)))
+                    low++;
+                while (low < high && Objects.equals(array.get(high), array.get(high - 1)))
+                    high--;
+                low++;
+                high--;
+            } else {
+                if (array.get(low) + array.get(high) < sum)
+                    low++;
+                else
+                    high--;
+            }
+        }
+        return pairs;
+    }
+
+    public void displayPairs(List<List<Integer>> pairs){
+        System.out.println();
+        for(List<Integer> pair : pairs){
+            System.out.print("[" + pair.get(0) + ", " + pair.get(1) + "]  ");
+        }
     }
 
     public static void main(String[] args) {
@@ -44,8 +79,9 @@ public class PairsofSum {
         PairsofSum currentObject = new PairsofSum();
         System.out.println("\nShowing all pairs of integers within an array which sum to " + sum + ":");
         long startTime = System.nanoTime();
-        currentObject.pairsOfSum(array, sum);
+        List<List<Integer>> pairs = currentObject.pairsOfSum_Sorted(array, sum);
         long endTime = System.nanoTime();
+        currentObject.displayPairs(pairs);
         System.out.println("\nThe algorithm took " + (endTime - startTime) + " nanoseconds.");
     }
 }
