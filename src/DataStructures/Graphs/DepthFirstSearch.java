@@ -11,15 +11,21 @@ import java.util.Stack;
 
 public class DepthFirstSearch {
 
+
+
     void performDFS(Graph graph){
+        int connectedComponents = 0;
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
             visited.put(v, false);
         System.out.print("\nComplete DFS of graph is: ");
-        for (Vertex v : graph.getVertices()){
-            if(!visited.get(v))
-                DFS(graph, v, visited);
+        for (Vertex v : graph.getVertices()) {
+            if (!visited.get(v)) {
+                DFS(graph, v, visited); // To perform DFS on not-connected components of graph.
+                ++connectedComponents; // Each call to this DFS represent a single connected component.
+            }
         }
+        System.out.println("\nTotal connected components: " + connectedComponents);
     }
 
     void performDFS(Graph graph, Vertex source){
