@@ -79,7 +79,7 @@ public class CombinationSum {
 
     public static void main(String[] args) {
         CombinationSum combinations = new CombinationSum();
-        List<Integer> inputSet = new ArrayList<>(Arrays.asList(2,2,3,4,6,7,8,10));
+        List<Integer> inputSet = new ArrayList<>(Arrays.asList(10,2,4,8,3,2,6,7));
         int targetSum = 13;
         System.out.println("Showing all combinations of elements in the array which sum up to " + targetSum);
         List<List<Integer>> resultSet = combinations.getSumCombinations(inputSet, targetSum);
