@@ -1,10 +1,12 @@
-package Algorithms;
+package BackTracking;
 
 /*
  * Author: honey
  * Date created: 6/14/2016
  */
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MazeShortestPath {
 

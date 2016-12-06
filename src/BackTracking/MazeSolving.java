@@ -1,4 +1,4 @@
-package Algorithms;
+package BackTracking;
 
 import java.util.Scanner;
 
