@@ -76,4 +76,3 @@ public class MinStepsToOne {
         System.out.println("Minimum required steps (using DP approach) are : " + currentObj.minStepsDP(number));
     }
 }
-
