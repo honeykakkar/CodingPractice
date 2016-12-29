@@ -1,4 +1,4 @@
-package DataStructures;
+package DataStructures.DisjointSet;
 
 import DataStructures.Graphs.Vertex;
 
@@ -11,34 +11,16 @@ import java.util.HashMap;
  */
 public class DisjointSet<T> {
 
-    class DSElement<E>{
-        E data;
-        int rank;
-        DSElement<E> parent;
 
-        public DSElement(E data, int rank) {
-            this.data = data;
-            this.rank = rank;
-            this.parent = null;
-        }
 
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof DSElement))
-                return false;
-            DSElement dsObj = (DSElement) obj;
-            return this.parent == dsObj.parent && this.data == dsObj.data && this.rank == dsObj.rank;
-        }
-    }
-
-    HashMap<T, DSElement<T>> elements;
+    final HashMap<T, DSElement<T>> elements;
 
     public DisjointSet() {
         elements = new HashMap<>();
     }
 
     public DisjointSet(int N) {
-        elements = new HashMap<T, DSElement<T>>(N);
+        elements = new HashMap<>(N);
     }
 
     public void insert(T newData){
