@@ -24,19 +24,19 @@ import java.util.Random;
     // can improve performance in best case scenarios where elements
     // are already sorted.
 
-public class BubbleSort<T extends Comparable<T>> {
+public class BubbleSort {
 
     // method to implement bubble sort.
-    public void bubbleSort(ArrayList<T> array){
+    private <T extends Comparable<T>> void bubbleSort(ArrayList<T> array) {
         boolean swapped = true;
         int n = array.size();
-        while(swapped){
+        while (swapped) {
             swapped = false;
-            for (int i=0; i<n-1; ++i){
-                if(array.get(i).compareTo(array.get(i+1)) > 0){
+            for (int i = 0; i < n - 1; ++i) {
+                if (array.get(i).compareTo(array.get(i + 1)) > 0) {
                     T temp = array.get(i);
-                    array.set(i, array.get(i+1));
-                    array.set(i+1, temp);
+                    array.set(i, array.get(i + 1));
+                    array.set(i + 1, temp);
                     swapped = true;
                 }
             }
@@ -44,8 +44,8 @@ public class BubbleSort<T extends Comparable<T>> {
         }
     }
 
-    // method to display the list of elements
-    public void display(ArrayList<T> array){
+    // Method to display the elements in the given list
+    public <T> void display(ArrayList<T> array) {
         for (T element : array)
             System.out.print(element + " ");
         System.out.println();
@@ -56,66 +56,63 @@ public class BubbleSort<T extends Comparable<T>> {
         long startTime, endTime;
         // Testing when integers are in reverse order
         ArrayList<Integer> intArray = new ArrayList<>(n);
-        for(int i=0; i<n; ++i)
-            intArray.add(n-i);
-        BubbleSort<Integer> intSorter = new BubbleSort<>();
+        for (int i = 0; i < n; ++i)
+            intArray.add(n - i);
+        BubbleSort sorter = new BubbleSort();
         System.out.println("Testing integers in reverse order:");
         System.out.println("Before performing bubble sort:");
-        intSorter.display(intArray);
+        sorter.display(intArray);
         startTime = System.nanoTime();
-        intSorter.bubbleSort(intArray);
+        sorter.bubbleSort(intArray);
         endTime = System.nanoTime();
         System.out.println("After performing bubble sort:");
-        intSorter.display(intArray);
-        System.out.println("It took " + (endTime-startTime) + " ns to perform the sort.");
+        sorter.display(intArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
 
         // Testing when integers are in no order
         intArray = new ArrayList<>(n);
-        int[] randomInts = new Random().ints(1,31).distinct().limit(30).toArray();
+        int[] randomInts = new Random().ints(1, 31).distinct().limit(30).toArray();
         for (int randomInt : randomInts) intArray.add(randomInt);
         System.out.println("\nTesting integers in random order:");
         System.out.println("Before performing bubble sort:");
-        intSorter.display(intArray);
+        sorter.display(intArray);
         startTime = System.nanoTime();
-        intSorter.bubbleSort(intArray);
+        sorter.bubbleSort(intArray);
         System.out.println("After performing bubble sort:");
         endTime = System.nanoTime();
-        intSorter.display(intArray);
-        System.out.println("It took " + (endTime-startTime) + " ns to perform the sort.");
+        sorter.display(intArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
 
         n = 26;
         // Testing when characters are already sorted
         ArrayList<Character> charArray = new ArrayList<>(n);
-        for(int i=0; i<n; ++i)
-            charArray.add((char)(65+i));
-        BubbleSort<Character> charSorter = new BubbleSort<>();
+        for (int i = 0; i < n; ++i)
+            charArray.add((char) (65 + i));
         System.out.println("\nTesting characters in sorted order:");
         System.out.println("Before performing bubble sort:");
-        charSorter.display(charArray);
+        sorter.display(charArray);
         startTime = System.nanoTime();
-        charSorter.bubbleSort(charArray);
+        sorter.bubbleSort(charArray);
         endTime = System.nanoTime();
         System.out.println("After performing bubble sort:");
-        charSorter.display(charArray);
-        System.out.println("It took " + (endTime-startTime) + " ns to perform the sort.");
+        sorter.display(charArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
 
         // Testing when doubles are in random order
         // It is advised to use double instead of float
         // as JAVA, by default, uses double to represent its floating-point numerals
 
-        double[] randomArray = new Random().doubles(1,21).distinct().limit(50).toArray();
+        double[] randomArray = new Random().doubles(1, 21).distinct().limit(50).toArray();
         ArrayList<Double> doubleArray = new ArrayList<>(50);
         for (double aRandomArray : randomArray) doubleArray.add(aRandomArray);
-        BubbleSort<Double> doubleSorter = new BubbleSort<>();
         System.out.println("\nTesting doubles in random order:");
         System.out.println("Before performing bubble sort:");
-        doubleSorter.display(doubleArray);
+        sorter.display(doubleArray);
         startTime = System.nanoTime();
-        doubleSorter.bubbleSort(doubleArray);
+        sorter.bubbleSort(doubleArray);
         endTime = System.nanoTime();
         System.out.println("After performing bubble sort:");
-        doubleSorter.display(doubleArray);
-        System.out.println("It took " + (endTime-startTime) + " ns to perform the sort.");
-
+        sorter.display(doubleArray);
+        System.out.println("It took " + (endTime - startTime) + " ns to perform the sort.");
     }
 }
