@@ -8,9 +8,8 @@ import java.util.ArrayList;
  * Date created: 10/10/2016
  */
 
-/*Given two sorted arrays and a number row,
-find the pair whose sum is closest to row and the pair has an element from each array.
- */
+// Given two sorted arrays and a number row,
+// find the pair whose sum is closest to row and the pair has an element from each array.
 
 public class ClosestPair {
 

@@ -9,8 +9,8 @@ import java.util.Random;
  * Date created: 10/8/2016
  */
 
-/*Given an unsorted array array.get([0..n-1] of size n, find the minimum length sub-array array.get([s..e]
-  such that sorting this sub-array makes the whole array sorted.*/
+// Given an unsorted array array.get([0..n-1] of size n, find the minimum length sub-array array.get([s..e]
+//  such that sorting this sub-array makes the whole array sorted.
 
 
     // 1. Find the first element from left with its value greater than next : s
