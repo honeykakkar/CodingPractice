@@ -1,7 +1,7 @@
 package Sorting;
 
-import DataStructures.LinkedList;
-import DataStructures.LinkedList.LinkedListNode;
+import DataStructures.LinkedList.SingleLinkedList;
+import DataStructures.LinkedList.SingleListNode;
 
 /**
  * Author: honey
@@ -17,15 +17,14 @@ import DataStructures.LinkedList.LinkedListNode;
 
 public class MergeSort_LinkedList<T extends Comparable<T>> {
 
-    LinkedListNode<T> mergeSort(LinkedListNode<T> head) {
-        if(head == null || head.next == null)
+    private SingleListNode<T> mergeSort(SingleListNode<T> head) {
+        if (head == null || head.next == null)
             return head;
 
-        LinkedListNode<T> turtle = head, hare = head.next;
+        SingleListNode<T> turtle = head, hare = head.next;
 
         // Using turtle-hare approach (slow-fast pointer) to split the linked list in two equal halves
-        while ((hare != null) && hare.next != null)
-        {
+        while ((hare != null) && hare.next != null) {
             turtle = turtle.next;
             hare = hare.next.next;
         }
@@ -34,16 +33,16 @@ public class MergeSort_LinkedList<T extends Comparable<T>> {
         hare = turtle.next;
         turtle.next = null;
 
-        LinkedListNode<T> sortedLeft = mergeSort(head);
-        LinkedListNode<T> sortedRight = mergeSort(hare);
+        SingleListNode<T> sortedLeft = mergeSort(head);
+        SingleListNode<T> sortedRight = mergeSort(hare);
 
-        return mergeLists(sortedLeft, sortedRight);
+        return mergeLists_iterative(sortedLeft, sortedRight);
     }
 
     // Method to merge two sorted linked lists
     // Recursively calling it to find the next element in the final linked list
-    LinkedListNode<T> mergeLists(LinkedListNode<T> listLeft, LinkedListNode<T> listRight) {
-        LinkedListNode<T> winnerHead;
+    private SingleListNode<T> mergeLists_recursive(SingleListNode<T> listLeft, SingleListNode<T> listRight) {
+        SingleListNode<T> winnerHead;
         if (listLeft == null)
             return listRight;
         else {
@@ -51,34 +50,69 @@ public class MergeSort_LinkedList<T extends Comparable<T>> {
                 return listLeft;
         }
 
-        if(listLeft.value.compareTo(listRight.value) <= 0){
+        if (listLeft.value.compareTo(listRight.value) <= 0) {
             winnerHead = listLeft;
-            winnerHead.next = mergeLists(winnerHead.next, listRight);
-        }
-        else{
+            winnerHead.next = mergeLists_recursive(listLeft.next, listRight);
+        } else {
             winnerHead = listRight;
-            winnerHead.next = mergeLists(listLeft, winnerHead.next);
+            winnerHead.next = mergeLists_recursive(listLeft, listRight.next);
         }
         return winnerHead;
     }
 
+    private SingleListNode<T> mergeLists_iterative(SingleListNode<T> listLeft, SingleListNode<T> listRight) {
+        if (listLeft == null)
+            return listRight;
+        else {
+            if (listRight == null)
+                return listLeft;
+        }
+
+        SingleListNode<T> sortHead = new SingleListNode<>();
+        SingleListNode<T> sorted = sortHead;
+
+        while (listLeft != null && listRight != null) {
+            if (listLeft.value.compareTo(listRight.value) <= 0) {
+                sorted.next = listLeft;
+                listLeft = listLeft.next;
+            } else {
+                sorted.next = listRight;
+                listRight = listRight.next;
+            }
+            sorted = sorted.next;
+        }
+
+        while (listLeft != null) {
+            sorted.next = listLeft;
+            listLeft = listLeft.next;
+            sorted = sorted.next;
+        }
+
+        while (listRight != null) {
+            sorted.next = listRight;
+            listRight = listRight.next;
+            sorted = sorted.next;
+        }
+        return sortHead.next;
+    }
+
     public static void main(String[] args) {
-        LinkedList<Integer> intLinkedList = new LinkedList<>();
-        intLinkedList.pushNodes(1,3,13,5,8,21,2);
+        SingleLinkedList<Integer> intLinkedList = new SingleLinkedList<>();
+        intLinkedList.pushNodes(1, 3, 13, 5, 8, 21, 2);
         intLinkedList.displayList();
 
         MergeSort_LinkedList<Integer> intListSorter = new MergeSort_LinkedList<>();
-        LinkedListNode<Integer> intSortedHead = intListSorter.mergeSort(intLinkedList.getHead());
+        SingleListNode<Integer> intSortedHead = intListSorter.mergeSort(intLinkedList.getHead());
         intLinkedList.setHead(intSortedHead);
         System.out.print("\nAfter sorting the nodes in linked list:");
         intLinkedList.displayList();
 
-        LinkedList<String> stringLinkedList = new LinkedList<>();
-        stringLinkedList.pushNodes("G","A","F","J","B","E","D","C","E");
+        SingleLinkedList<String> stringLinkedList = new SingleLinkedList<>();
+        stringLinkedList.pushNodes("G", "A", "F", "J", "B", "E", "D", "C", "E");
         stringLinkedList.displayList();
 
         MergeSort_LinkedList<String> stringListSorter = new MergeSort_LinkedList<>();
-        LinkedListNode<String> stringSortedHead = stringListSorter.mergeSort(stringLinkedList.getHead());
+        SingleListNode<String> stringSortedHead = stringListSorter.mergeSort(stringLinkedList.getHead());
         stringLinkedList.setHead(stringSortedHead);
         System.out.print("\nAfter sorting the nodes in linked list:");
         stringLinkedList.displayList();
