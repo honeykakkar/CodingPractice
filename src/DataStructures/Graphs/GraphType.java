@@ -1,7 +1,7 @@
 package DataStructures.Graphs;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 6/16/2016
  */

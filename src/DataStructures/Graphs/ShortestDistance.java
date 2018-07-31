@@ -10,17 +10,23 @@ import java.util.Stack;
  * Date created: 7/14/2016
  */
 
-// The following algorithm calculates the longest distance from
+// The following algorithm calculates the shortest distance from
 // a given vertex as source to all other vertices in the graph.
 
-public class LongestDistance {
+// Complexity : |V| + |E|
+public class ShortestDistance {
 
     private final HashMap<Vertex, Integer> distances = new HashMap<>();
     private final HashMap<Vertex, Vertex> parents = new HashMap<>();
+    private final Graph graph;
     private final Vertex source;
 
-    private LongestDistance(Vertex source) {
+    private ShortestDistance(Graph graph, Vertex source) {
+        this.graph = graph;
         this.source = source;
+
+        for (Vertex V : graph.getVertices())
+            distances.put(V, (V == source) ? 0 : Integer.MAX_VALUE);
     }
 
     private void topologicalSort(Graph graph, Vertex current, HashMap<Vertex, Boolean> visited, Stack<Vertex> stack) {
@@ -48,11 +54,8 @@ public class LongestDistance {
         return result;
     }
 
-    private void findLongestPath(Graph graph) {
+    private void findShortestPath() {
         ArrayList<Vertex> topSort = performTopSort(graph);
-
-        for (Vertex V : graph.getVertices())
-            distances.put(V, (V == source) ? 0 : Integer.MIN_VALUE);
         int src = topSort.indexOf(source);
         for (int i = src; i < topSort.size(); ++i) {
             Vertex current = topSort.get(i);
@@ -62,9 +65,9 @@ public class LongestDistance {
                     int prevValue = distances.get(neighbour);
 
                     // Two ways to reach to neighbour: current + (current-neighbour), OR directly to neighbour.
-                    // Compare them both. Whichever is longer, pick that one.
+                    // Compare them both. Whichever is shorter, pick that one.
 
-                    if (distances.get(current) + edge.getWeight() > prevValue) {
+                    if (distances.get(current) + edge.getWeight() < prevValue) {
                         distances.put(neighbour, distances.get(current) + edge.getWeight());
                         parents.put(neighbour, current);
                     }
@@ -75,8 +78,8 @@ public class LongestDistance {
 
     private void printDistances() {
         for (Vertex V : distances.keySet())
-            System.out.println("The longest distance from vertex " + source + " as source to vertex " + V + " : " +
-                    (distances.get(V) == Integer.MIN_VALUE ? "Can't reach" : distances.get(V)));
+            System.out.println("The shortest distance from vertex " + source + " as source to vertex " + V + " : " +
+                    (distances.get(V) == Integer.MAX_VALUE ? "Can't reach" : distances.get(V)));
         System.out.println();
     }
 
@@ -88,10 +91,10 @@ public class LongestDistance {
                 V = parents.get(V);
             }
 
-            if (distances.get(V) != Integer.MIN_VALUE)
+            if (distances.get(V) != Integer.MAX_VALUE)
                 st.push(V);
 
-            System.out.print("The longest path from vertex " + source + " as source to vertex " + st.get(0) + " : ");
+            System.out.print("The shortest path from vertex " + source + " as source to vertex " + st.get(0) + " : ");
             while (!st.isEmpty())
                 System.out.print(st.pop() + " ");
             System.out.println();
@@ -104,17 +107,17 @@ public class LongestDistance {
         testGraph.addEdge("0", "4", 4);
         testGraph.addEdge("0", "3", 2);
         testGraph.addEdge("1", "3", 1);
-        testGraph.addEdge("1", "4", 1);
+        testGraph.addEdge("1", "4", -1);
         testGraph.addEdge("2", "0", 2);
         testGraph.addEdge("2", "1", 6);
-        testGraph.addEdge("4", "3", 2);
+        testGraph.addEdge("4", "3", -2);
         testGraph.addEdge("5", "0", 3);
         testGraph.addEdge("5", "2", 5);
         System.out.println(testGraph.toString());
         Vertex source = testGraph.getVertex("5");
-        LongestDistance currObject = new LongestDistance(source);
+        ShortestDistance currObject = new ShortestDistance(testGraph, source);
         long startTime = System.nanoTime();
-        currObject.findLongestPath(testGraph);
+        currObject.findShortestPath();
         long endTime = System.nanoTime();
         System.out.println("The algorithm took " + (endTime - startTime) + " nanoseconds.\n");
         currObject.printDistances();

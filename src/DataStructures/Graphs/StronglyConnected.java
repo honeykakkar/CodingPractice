@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: Coding Practice in JAVA
  * Date created: 11/30/2016
  */
@@ -22,7 +22,8 @@ public class StronglyConnected {
     // The idea is to perform topological sort on the original graph
     // Then, transpose the graph, meaning reverse each edge of the graph
     // Then, perform DFS on transposed graph in topological order of vertices from the original graph.
-    void getSCCs(Graph graph) {
+
+    private void getSCCs(Graph graph) {
         TopologicalSort topSorter = new TopologicalSort();
         ArrayList<Vertex> topSort = topSorter.getTopSort(graph);    // Perform topological sort
         System.out.println(topSort.toString());

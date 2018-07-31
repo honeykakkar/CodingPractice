@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: Coding Practice in JAVA
  * Date created: 10/29/2016
  */
@@ -25,11 +25,10 @@ import java.util.List;
 
 public class KruskalMST {
 
-    ArrayList<Edge> findMST(Graph graph){
+    private ArrayList<Edge> findMST(Graph graph) {
         DisjointSet disjointSet = new DisjointSet(graph);
         HashSet<Edge> edges = graph.getEdges();
-        List<Edge> sortedEdges = new ArrayList<>();
-        sortedEdges.addAll(edges);
+        List<Edge> sortedEdges = new ArrayList<>(edges);
         // Have a collection of edges in the increasing order of their weights
         Collections.sort(sortedEdges);
 
@@ -49,7 +48,7 @@ public class KruskalMST {
     }
 
     // method to displayMSTEdges the list of elements
-    public <T> void displayMSTEdges(ArrayList<T> array){
+    private <T> void displayMSTEdges(ArrayList<T> array) {
         for (T element : array)
             System.out.println(element + " ");
         System.out.println();

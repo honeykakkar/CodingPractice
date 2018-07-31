@@ -1,7 +1,7 @@
 package DataStructures.Graphs;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 6/16/2016
  */
@@ -10,7 +10,7 @@ public class Edge implements Comparable<Edge> {
     private Vertex destination;
     private int weight;
 
-    public int getWeight() {
+    int getWeight() {
         return weight;
     }
 
@@ -26,7 +26,7 @@ public class Edge implements Comparable<Edge> {
         this.source = source;
     }
 
-    public Vertex getDestination() {
+    Vertex getDestination() {
         return destination;
     }
 
@@ -34,7 +34,7 @@ public class Edge implements Comparable<Edge> {
         this.destination = destination;
     }
 
-    public Edge(int weight){
+    public Edge(int weight) {
         this.weight = weight;
     }
 
@@ -51,9 +51,9 @@ public class Edge implements Comparable<Edge> {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Edge))
+        if (!(obj instanceof Edge))
             return false;
-        Edge other = (Edge)obj;
+        Edge other = (Edge) obj;
         return this.source.equals(other.source) &&
                 this.destination.equals(other.destination) &&
                 this.weight == other.weight;

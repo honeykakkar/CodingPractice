@@ -1,19 +1,18 @@
 package DataStructures.Graphs;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 7/9/2016
  */
 
 public class DepthFirstSearch {
 
-
-
-    void performDFS(Graph graph){
+    private void performDFS(Graph graph) {
         int connectedComponents = 0;
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
@@ -28,7 +27,7 @@ public class DepthFirstSearch {
         System.out.println("\nTotal connected components: " + connectedComponents);
     }
 
-    void performDFS(Graph graph, Vertex source){
+    private void performDFS(Graph graph, Vertex source) {
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
             visited.put(v, false);
@@ -36,17 +35,17 @@ public class DepthFirstSearch {
         DFS(graph, source, visited);
     }
 
-    void DFS(Graph graph, Vertex current, HashMap<Vertex, Boolean> visited){
+    void DFS(Graph graph, Vertex current, HashMap<Vertex, Boolean> visited) {
         visited.put(current, true);
         System.out.print(current + "  ");
         HashSet<Vertex> destNeighbours = graph.getAdjacencyList().get(current);
-        for (Vertex v : destNeighbours){
-            if(!visited.get(v))
+        for (Vertex v : destNeighbours) {
+            if (!visited.get(v))
                 DFS(graph, v, visited);
         }
     }
 
-    void performIterativeDFS (Graph graph, Vertex source){
+    private void performIterativeDFS(Graph graph, Vertex source) {
         Stack<Vertex> stack = new Stack<>();
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
@@ -54,9 +53,9 @@ public class DepthFirstSearch {
         System.out.print("\nIterative DFS from " + source + " as source is:");
 
         stack.push(source);
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Vertex top = stack.pop();
-            if(visited.get(top))
+            if (visited.get(top))
                 continue;
 
             visited.put(top, true);
@@ -67,12 +66,12 @@ public class DepthFirstSearch {
 
     public static void main(String[] args) {
         Graph testGraph = new Graph(GraphType.DIRECTED);
-        testGraph.addEdge("V0","V1",1);
-        testGraph.addEdge("V0","V2",1);
-        testGraph.addEdge("V1","V2",1);
-        testGraph.addEdge("V2","V0",1);
-        testGraph.addEdge("V2","V3",1);
-        testGraph.addEdge("V3","V3",1);
+        testGraph.addEdge("V0", "V1", 1);
+        testGraph.addEdge("V0", "V2", 1);
+        testGraph.addEdge("V1", "V2", 1);
+        testGraph.addEdge("V2", "V0", 1);
+        testGraph.addEdge("V2", "V3", 1);
+        testGraph.addEdge("V3", "V3", 1);
         System.out.print("Displaying the adjacency list of graph:\n" + testGraph.toString());
         DepthFirstSearch currObj = new DepthFirstSearch();
         currObj.performDFS(testGraph, testGraph.getVertex("V2"));

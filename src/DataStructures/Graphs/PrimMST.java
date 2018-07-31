@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: Coding Practice in JAVA
  * Date created: 10/29/2016
  */
@@ -21,15 +21,15 @@ import java.util.HashMap;
 
 public class PrimMST {
 
-    HashMap<Vertex, Vertex> parents = new HashMap<>();
-    HashMap<Vertex, Integer> keys = new HashMap<>();
-    HashMap<Vertex, Boolean> verticesMST = new HashMap<>();
-    Graph graph;
+    private final HashMap<Vertex, Vertex> parents = new HashMap<>();
+    private final HashMap<Vertex, Integer> keys = new HashMap<>();
+    private final HashMap<Vertex, Boolean> visited = new HashMap<>();
+    private final Graph graph;
 
-    public PrimMST(Graph graph){
+    private PrimMST(Graph graph) {
         this.graph = graph;
-        for(Vertex vertex : graph.getVertices()) {
-            verticesMST.put(vertex, false);
+        for (Vertex vertex : graph.getVertices()) {
+            visited.put(vertex, false);
             keys.put(vertex, Integer.MAX_VALUE);
         }
 
@@ -39,11 +39,11 @@ public class PrimMST {
     }
 
     // method to find the vertex with minimum key value, from the set of vertices not yet included in MST
-    public Vertex findMinKeyVertex(){
+    private Vertex findMinKeyVertex() {
         int min = Integer.MAX_VALUE;
         Vertex minVertex = null;
-        for(Vertex vertex : verticesMST.keySet()){
-            if(!verticesMST.get(vertex) && keys.get(vertex) < min){
+        for (Vertex vertex : visited.keySet()) {
+            if (!visited.get(vertex) && keys.get(vertex) < min) {
                 min = keys.get(vertex);
                 minVertex = vertex;
             }
@@ -51,18 +51,18 @@ public class PrimMST {
         return minVertex;
     }
 
-    public void findMST() {
+    private void findMST() {
 
-        for (int i=0; i<graph.getVertices().size() - 1; ++i){
+        for (int i = 0; i < graph.getVertices().size() - 1; ++i) {
             Vertex current = findMinKeyVertex();
-            verticesMST.put(current, true);
+            visited.put(current, true);
 
-            for(Vertex neighbour : graph.getAdjacencyList().get(current)){
+            for (Vertex neighbour : graph.getAdjacencyList().get(current)) {
                 Edge edge = graph.getEdge(current, neighbour);
                 int edgeWeight = edge.getWeight();
                 int prevValue = keys.get(neighbour);
 
-                if(!verticesMST.get(neighbour) && edgeWeight < prevValue){
+                if (!visited.get(neighbour) && edgeWeight < prevValue) {
                     keys.put(neighbour, edgeWeight);
                     parents.put(neighbour, current);
                 }
@@ -70,17 +70,17 @@ public class PrimMST {
         }
     }
 
-    // method to displayMSTEdges the list of elements
-    public <T> void display(ArrayList<T> array){
+    // method to display the list of elements
+    private <T> void display(ArrayList<T> array) {
         for (T element : array)
             System.out.println(element + " ");
         System.out.println();
     }
 
-    void displayMSTEdges(){
+    private void displayMSTEdges() {
         ArrayList<Edge> edgesMST = new ArrayList<>(parents.size());
-        for (Vertex source : parents.keySet()){
-            if(parents.get(source) != null){
+        for (Vertex source : parents.keySet()) {
+            if (parents.get(source) != null) {
                 Edge connection = graph.getEdge(source, parents.get(source));
                 edgesMST.add(connection);
             }

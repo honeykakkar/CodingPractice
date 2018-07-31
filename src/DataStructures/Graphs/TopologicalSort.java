@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 7/10/2016
  */
@@ -14,55 +14,55 @@ import java.util.Stack;
 
 public class TopologicalSort {
 
-    void topologicalSort(Graph graph, Vertex current, HashMap<Vertex, Boolean> visited, Stack<Vertex> stack){
+    private void topologicalSort(Graph graph, Vertex current, HashMap<Vertex, Boolean> visited, Stack<Vertex> stack) {
         visited.put(current, true);
-        for (Vertex neighbour : graph.getAdjacencyList().get(current)){
-            if(!visited.get(neighbour))
+        for (Vertex neighbour : graph.getAdjacencyList().get(current)) {
+            if (!visited.get(neighbour))
                 topologicalSort(graph, neighbour, visited, stack);
         }
         stack.push(current);
     }
 
     // performing topological sort using DFS approach
-    void performTopSort(Graph graph){
+    private void performTopSort(Graph graph) {
         Stack<Vertex> stack = new Stack<>();
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
             visited.put(v, false);
         System.out.print("\nOne of the topological sorts of graph is: ");
-        for (Vertex v : graph.getVertices()){
-            if(!visited.get(v))
+        for (Vertex v : graph.getVertices()) {
+            if (!visited.get(v))
                 topologicalSort(graph, v, visited, stack);
         }
 
-        for (int i= stack.size()-1; i>=0; --i)
+        for (int i = stack.size() - 1; i >= 0; --i)
             System.out.print(stack.get(i) + "  ");
     }
 
     // performing topological sort using DFS approach
-    ArrayList<Vertex> getTopSort(Graph graph){
+    ArrayList<Vertex> getTopSort(Graph graph) {
         Stack<Vertex> stack = new Stack<>();
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
             visited.put(v, false);
         System.out.print("\nOne of the topological sorts of graph is: ");
-        for (Vertex v : graph.getVertices()){
-            if(!visited.get(v))
+        for (Vertex v : graph.getVertices()) {
+            if (!visited.get(v))
                 topologicalSort(graph, v, visited, stack);
         }
 
         ArrayList<Vertex> topSort = new ArrayList<>();
-        for (int i = stack.size() - 1; i>=0; --i)
+        for (int i = stack.size() - 1; i >= 0; --i)
             topSort.add(stack.get(i));
         return topSort;
     }
 
     // solving topological sort using the approach of in-degrees of each vertex
-    void getAllTopSorts(Graph graph, ArrayList<Vertex> topSort, HashMap<Vertex, Boolean> visited, HashMap<Vertex, Integer> inDegrees){
+    private void getAllTopSorts(Graph graph, ArrayList<Vertex> topSort, HashMap<Vertex, Boolean> visited, HashMap<Vertex, Integer> inDegrees) {
         boolean flag = false;
-        for (Vertex currV : graph.getVertices()){
-            if(inDegrees.get(currV) == 0 && !visited.get(currV)){
-                for(Vertex neighbour : graph.getAdjacencyList().get(currV)){
+        for (Vertex currV : graph.getVertices()) {
+            if (inDegrees.get(currV) == 0 && !visited.get(currV)) {
+                for (Vertex neighbour : graph.getAdjacencyList().get(currV)) {
                     Integer prevValue = inDegrees.get(neighbour);
                     inDegrees.put(neighbour, prevValue - 1);
                 }
@@ -73,8 +73,8 @@ public class TopologicalSort {
 
                 // backtracking here
                 visited.put(currV, false);
-                topSort.remove(topSort.size()-1);
-                for(Vertex neighbour : graph.getAdjacencyList().get(currV)){
+                topSort.remove(topSort.size() - 1);
+                for (Vertex neighbour : graph.getAdjacencyList().get(currV)) {
                     Integer prevValue = inDegrees.get(neighbour);
                     inDegrees.put(neighbour, prevValue + 1);
                 }
@@ -82,14 +82,14 @@ public class TopologicalSort {
             }
         }
 
-        if(!flag){
+        if (!flag) {
             for (Vertex V : topSort)
                 System.out.print(V + "  ");
             System.out.println();
         }
     }
 
-    void performAllTopSorts(Graph graph){
+    private void performAllTopSorts(Graph graph) {
         HashMap<Vertex, Boolean> visited = new HashMap<>();
         for (Vertex v : graph.getVertices())
             visited.put(v, false);
