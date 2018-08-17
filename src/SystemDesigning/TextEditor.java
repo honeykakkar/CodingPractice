@@ -1,8 +1,10 @@
-package Utilities;
-import java.util.*;
+package SystemDesigning;
+
+import java.util.Scanner;
+import java.util.Stack;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 8/20/2016
  */
@@ -17,32 +19,32 @@ You must perform Q operations of the following types:
 
 public class TextEditor {
 
-    StringBuilder string;
-    Stack<StringBuilder> restoreStack;
+    private StringBuilder string;
+    private final Stack<StringBuilder> restoreStack;
 
-    TextEditor(){
-        string = new StringBuilder("");
+    private TextEditor() {
+        string = new StringBuilder();
         restoreStack = new Stack<>();
     }
 
-    void append(String W){
+    private void append(String W) {
         restoreStack.push(new StringBuilder(string));
         string.append(W);
     }
 
-    void delete(int K){
+    private void delete(int K) {
         if (string.length() != 0) {
             restoreStack.push(new StringBuilder(string));
             string.delete(string.length() - K, string.length());
         }
     }
 
-    void print(int K){
+    private void print(int K) {
         if (string.length() != 0)
             System.out.println(string.charAt(K - 1));
     }
 
-    void undo(){
+    private void undo() {
         if (!restoreStack.empty())
             string = restoreStack.pop();
     }

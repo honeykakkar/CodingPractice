@@ -22,15 +22,21 @@ It is possible that several hits arrive roughly at the same time.
 class HitCounter {
     private final int[] times;
     private final int[] hits;
-    /** Initialize your data structure here. */
+
+    /**
+     * Initialize your data structure here.
+     */
 
     public HitCounter() {
         times = new int[300];
         hits = new int[300];
     }
 
-    /** Record a hit.
-     @param timestamp - The current timestamp (in seconds granularity). */
+    /**
+     * Record a hit.
+     *
+     * @param timestamp - The current timestamp (in seconds granularity).
+     */
     public void hit(int timestamp) {
         int index = timestamp % 300;
         if (times[index] != timestamp) {
@@ -41,8 +47,11 @@ class HitCounter {
         }
     }
 
-    /** Return the number of hits in the past 5 minutes.
-     @param timestamp - The current timestamp (in seconds granularity). */
+    /**
+     * Return the number of hits in the past 5 minutes.
+     *
+     * @param timestamp - The current timestamp (in seconds granularity).
+     */
     public int getHits(int timestamp) {
         int total = 0;
         for (int i = 0; i < 300; i++) {
