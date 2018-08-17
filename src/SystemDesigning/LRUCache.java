@@ -97,3 +97,35 @@ class LRUCache {
         }
     }
 }
+
+/*
+Credits: Leetcode.com
+
+In-built cache using LinkedHashMap
+class LRUCache {
+
+    private LinkedHashMap<Integer, Integer> map;
+    private final int CAPACITY;
+
+    public LRUCache(int capacity) {
+        CAPACITY = capacity;
+
+        // Constructs an empty LinkedHashMap instance with the specified initial capacity, load factor and ordering mode.
+        // accessOrder - the ordering mode - true for access-order, false for insertion-order
+
+        map = new LinkedHashMap<Integer, Integer>(capacity, 0.75f, true){
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                return size() > CAPACITY;
+            }
+        };
+    }
+
+    public int get(int key) {
+        return map.getOrDefault(key, -1);
+    }
+
+    public void set(int key, int value) {
+        map.put(key, value);
+    }
+}
+ */
