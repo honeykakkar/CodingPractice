@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 10/8/2016
  */
@@ -13,12 +13,12 @@ import java.util.Random;
 //  such that sorting this sub-array makes the whole array sorted.
 
 
-    // 1. Find the first element from left with its value greater than next : s
-    // 2. Find the first element from right with its value lesser than previous : e
-    // 3. Include more elements in candidate sub-array [s - e] if necessary
-        // a. Find min and max of the sub-array
-        // b. Find the first element in array[0 - s-1] which has its value greater than min in sub-array. Change s to its index
-        // c. Find the first element in array[s+1 - n-1] which has its value lesser than max in sub-array. Change e to its index
+// 1. Find the first element from left with its value greater than next : s
+// 2. Find the first element from right with its value lesser than previous : e
+// 3. Include more elements in candidate sub-array [s - e] if necessary
+// a. Find min and max of the sub-array
+// b. Find the first element in array[0 - s-1] which has its value greater than min in sub-array. Change s to its index
+// c. Find the first element in array[s+1 - n-1] which has its value lesser than max in sub-array. Change e to its index
 
 public class AlmostSorted {
 
@@ -76,7 +76,7 @@ public class AlmostSorted {
     }
 
     // method to display the elements in the list
-    public <T> void display(ArrayList<T> array) {
+    private <T> void display(ArrayList<T> array) {
         for (T element : array)
             System.out.print(element + " ");
         System.out.println();

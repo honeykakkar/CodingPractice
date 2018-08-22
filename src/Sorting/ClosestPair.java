@@ -3,13 +3,13 @@ package Sorting;
 import java.util.ArrayList;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 10/10/2016
  */
 
-// Given two sorted arrays and a number row,
-// find the pair whose sum is closest to row and the pair has an element from each array.
+// Given two sorted arrays and a number value,
+// find the pair whose sum is closest to value and the pair has an element from each array.
 
 public class ClosestPair {
 
@@ -45,6 +45,13 @@ public class ClosestPair {
         System.out.println("\n" + array1.get(pairX) + " (from array1) and " + array2.get(pairY) + " (from array2) sums closest to " + value);
     }
 
+    // Method to display the elements in the given list
+    private <T> void display(ArrayList<T> array) {
+        for (T element : array)
+            System.out.print(element + " ");
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         ClosestPair pairFinder = new ClosestPair();
         ArrayList<Integer> array1 = new ArrayList<>();
@@ -53,6 +60,9 @@ public class ClosestPair {
             array1.add(3 * i);
         for (int i = 1; i <= 30; ++i)
             array2.add(2 * (i + 2));
+        pairFinder.display(array1);
+        pairFinder.display(array2);
+
         pairFinder.getClosestPair(array1, array2, 0);
         pairFinder.getClosestPair(array1, array2, 57);
         pairFinder.getClosestPair(array1, array2, 91);

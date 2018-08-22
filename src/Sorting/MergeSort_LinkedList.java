@@ -4,7 +4,7 @@ import DataStructures.LinkedList.SingleLinkedList;
 import DataStructures.LinkedList.SingleListNode;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 10/8/2016
  */
@@ -12,8 +12,8 @@ import DataStructures.LinkedList.SingleListNode;
 // Program to implement the merge sort for linked lists.
 // Merge sort performs in O(nlogn) time irrespective of ordering of the elements
 
-    // Merge sort is an efficient sorting algorithm when it comes to linked lists.
-    // As it doesn't require any extra space to merge two sorted halves
+// Merge sort is an efficient sorting algorithm when it comes to linked lists.
+// As it doesn't require any extra space to merge two sorted halves
 
 public class MergeSort_LinkedList<T extends Comparable<T>> {
 

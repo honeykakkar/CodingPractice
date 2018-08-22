@@ -5,12 +5,22 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 10/5/2016
  */
+
+// Maintain two heaps - max heap and min heap.
+// Max heap would contain numbers less than median and min heap would contain numbers greater than median.
+// Get the difference of sizes of heaps.
+// If input < median and size of max heap is greater than min heap, then move the top element of max heap to min heap
+// and move the new element to max heap to make them balanced;
+// If input > median and size of min heap is greater than min heap, then move the top element of min heap to max heap
+// and move the new element to min heap to make them balanced;
+
 public class RunningMedian {
-    public static void main(String args[] ) throws Exception {
+
+    public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
@@ -21,26 +31,25 @@ public class RunningMedian {
         int maxSize = 0;
         int minSize = 0;
 
-        for(int i=0; i<n; ++i){
+        for (int i = 0; i < n; ++i) {
             int input = sc.nextInt();
             int diffSize = maxSize - minSize;
-            switch(diffSize){
+            switch (diffSize) {
                 case 0: // If both heaps are equal, compare the new value with median
-                    if(input < median)
+                    if (input < median)
                         maxHeap.offer(input);   // If less than old median, new values goes to max heap, else to min heap
                     else
                         minHeap.offer(input);
                     break;
                 case 1:// If max heap has one element more than min heap
-                    if(input < median){ // If new value is less than old median, pop the root and insert to min heap and insert new value to max heap
+                    if (input < median) { // If new value is less than old median, pop the root and insert to min heap and insert new value to max heap
                         minHeap.offer(maxHeap.poll()); // Done so to have difference in sizes of heaps utmost to 1
                         maxHeap.offer(input);
-                    }
-                    else
+                    } else
                         minHeap.offer(input);
                     break;
                 case -1:
-                    if(input < median)
+                    if (input < median)
                         maxHeap.offer(input);
                     else {
                         maxHeap.offer(minHeap.poll());  // If new value is less than old median, pop the root and insert to max heap and insert new value to min heap
@@ -58,13 +67,12 @@ public class RunningMedian {
             // If both heaps are equal, take average of both roots,
             // or median is the value of root having greater size
 
-            if(maxSize == minSize) {
+            if (maxSize == minSize) {
                 int maxTop = maxHeap.peek();
                 int minTop = minHeap.peek();
-                median = (double)(maxTop + minTop) / 2;
-            }
-            else{
-                if(maxSize > minSize)
+                median = (double) (maxTop + minTop) / 2;
+            } else {
+                if (maxSize > minSize)
                     median = maxHeap.peek();
                 else
                     median = minHeap.peek();

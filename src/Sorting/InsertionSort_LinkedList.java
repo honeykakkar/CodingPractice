@@ -4,7 +4,7 @@ import DataStructures.LinkedList.SingleLinkedList;
 import DataStructures.LinkedList.SingleListNode;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: Coding Practice in JAVA
  * Date created: 11/4/2016
  */
@@ -50,7 +50,7 @@ public class InsertionSort_LinkedList {
     public static void main(String[] args) {
         InsertionSort_LinkedList sorter = new InsertionSort_LinkedList();
         SingleLinkedList<Integer> intLinkedList = new SingleLinkedList<>();
-        intLinkedList.pushNodes(1,3,13,5,8,21,2);
+        intLinkedList.pushNodes(1, 3, 13, 5, 8, 21, 2);
         intLinkedList.displayList();
 
         SingleListNode<Integer> intSortedHead = sorter.insertionSort(intLinkedList);
@@ -59,7 +59,7 @@ public class InsertionSort_LinkedList {
         intLinkedList.displayList();
 
         SingleLinkedList<String> stringLinkedList = new SingleLinkedList<>();
-        stringLinkedList.pushNodes("G","A","F","J","B","E","D","C","E");
+        stringLinkedList.pushNodes("G", "A", "F", "J", "B", "E", "D", "C", "E");
         stringLinkedList.displayList();
 
         SingleListNode<String> stringSortedHead = sorter.insertionSort(stringLinkedList);
