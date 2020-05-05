@@ -1,144 +1,150 @@
 package DataStructures.DisjointSet;
 
-import DataStructures.Graphs.Vertex;
-
 import java.util.HashMap;
+import java.util.List;
 
 /**
- * Author: honey
+ * Author: Honey Kakkar
  * Project: CodingPractice
  * Date created: 6/22/2016
  */
 public class DisjointSet<T> {
 
+    private final HashMap<T, DSElement<T>> elements;     // map of data and its respective DSElement
+    private int numberOfSets;     // number of disjoint set components
 
-
-    final HashMap<T, DSElement<T>> elements;
-
+    /**
+     * Initializes an empty union-find data structure.
+     */
     public DisjointSet() {
         elements = new HashMap<>();
+        numberOfSets = 0;
     }
 
+    /**
+     * Initializes an empty union-find data structure
+     * when maximum capacity of set is known.
+     *
+     * @param N = number of elements expected to be inserted into set
+     */
     public DisjointSet(int N) {
         elements = new HashMap<>(N);
+        numberOfSets = 0;
     }
 
-    public void insert(T newData){
-        DSElement<T> newElement = new DSElement<>(newData, 0);
-        newElement.parent = newElement;
-        elements.put(newData, newElement);
-    }
-
-    public boolean union(T data1, T data2){
-        DSElement<T> element1 = elements.get(data1);
-        DSElement<T> element2 = elements.get(data2);
-        if(element1 == null || element2 == null || element1.equals(element2))
-            return false;
-
-        if(element1.rank >= element2.rank){
-            element2.parent = element1;
-            if(element1.rank == element2.rank)
-                ++element1.rank;
+    /**
+     * Inserts new element in the given list to disjoint set.
+     * Initially, new element is in its own set (means it is its own parent).
+     *
+     * @param listOfItems: list of items to be inserted
+     */
+    public void insert(List<T> listOfItems) {
+        if (listOfItems == null) {
+            return;
         }
-        else
-            element1.parent = element2;
+        for (T item : listOfItems) {
+            insert(item);
+        }
+    }
+
+    /**
+     * Inserts new element to disjoint set.
+     * Initially, new element is in its own set (means it is its own parent).
+     *
+     * @param newData: value of new element to be inserted
+     */
+    public void insert(T newData) {
+        if (elements.containsKey(newData)) {
+            return;
+        }
+        DSElement<T> newElement = new DSElement<>(newData);
+        elements.put(newData, newElement);
+        ++numberOfSets;
+    }
+
+    /**
+     * MMerges together the sets that the given two elements belong to,
+     * set containing element {@code data1} and set containing element {@code data2}.
+     *
+     * @param data1 one element
+     * @param data2 the other element
+     * @return true if sets containing both elements are merged;
+     * false if elements already belong to same set
+     * @throws IllegalArgumentException if any of the elements not present in set
+     */
+    public boolean union(T data1, T data2) {
+        T rep1 = find(data1);
+        T rep2 = find(data2);
+        if (rep1 == rep2) {
+            return false;
+        }
+
+        DSElement<T> root1 = elements.get(rep1);
+        DSElement<T> root2 = elements.get(rep2);
+        // make root of smaller rank point to root of larger rank
+        if (root1.rank < root2.rank) {
+            root1.parent = root2;
+        } else if (root1.rank > root2.rank) {
+            root2.parent = root1;
+        } else {
+            root2.parent = root1;
+            root1.rank++;
+        }
+        --numberOfSets;
         return true;
     }
 
-    public T find(T data){
-        if(elements.get(data) != null)
-            return find(elements.get(data)).data;
-        return null;
+    /**
+     * Returns the representative DSElement for the set containing the given element.
+     *
+     * @param element: an element
+     * @return the representative element of the set containing {@code element}
+     * @throws IllegalArgumentException if element not present in set
+     */
+    public T find(T element) {
+        if (!elements.containsKey(element)) {
+            throw new IllegalArgumentException("element not in the set");
+        }
+        return find(elements.get(element)).data;
     }
 
-    public DSElement<T> find(DSElement<T> current){
-        DSElement<T> currParent = current.parent;
-        if(currParent == current)
-            return currParent;
-        current.parent = find(currParent);
-        return currParent;
+    /**
+     * Returns the representative DSElement for the passed DSElement.
+     * Performs full path compression
+     * <p>
+     * Path compression flattens the structure of the tree
+     * by making every node point to the root
+     *
+     * @param current: a DSElement
+     * @return the representative DSElement of the set containing {@code current}
+     */
+    private DSElement<T> find(DSElement<T> current) {
+        if (current.parent != current) {
+            current.parent = find(current.parent);
+        }
+        return current.parent;
     }
 
-    public boolean isConnected(T data1, T data2){
-        T rep1 = find(data1);
-        T rep2 = find(data2);
-        return rep1.equals(rep2);
+    /**
+     * Returns true if the two elements are in the same set.
+     *
+     * @param data1 one element
+     * @param data2 the other element
+     * @return {@code true} if {@code data1} and {@code data2} are in the same set;
+     * {@code false} otherwise
+     * @throws IllegalArgumentException if any of elements not present in set
+     */
+    public boolean areConnected(T data1, T data2) {
+        return find(data1) == find(data2);
     }
 
-    public static void main(String[] args) {
-        System.out.println("Testing Disjoint set with Integer type elements");
-        System.out.println("-----------------------------------------------\n");
-        DisjointSet<Integer> set = new DisjointSet<>();
-        set.insert(1);
-        set.insert(2);
-        set.insert(3);
-        set.insert(5);
-        set.insert(8);
-        set.insert(13);
-        set.insert(21);
-        set.insert(34);
-
-        set.union(1,21);
-        set.union(2,13);
-        set.union(3,8);
-        set.union(1,8);
-        set.union(3,5);
-        set.union(3,34);
-
-        System.out.println("The representative of the set with element 5 is : " + set.find(5));
-        System.out.println("The representative of the set with element 3 is : " + set.find(3));
-        System.out.println("The representative of the set with element 21 is : " + set.find(21));
-        System.out.println("The representative of the set with element 8 is : " + set.find(8));
-        System.out.println("The representative of the set with element 13 is : " + set.find(13));
-        System.out.println("The representative of the set with element 2 is : " + set.find(2));
-
-        System.out.println(set.isConnected(8,3));
-        System.out.println(set.isConnected(34,5));
-        System.out.println(set.isConnected(2,3));
-        System.out.println(set.isConnected(2,13));
-        System.out.println(set.isConnected(21,13));
-        System.out.println(set.isConnected(21,8));
-
-        System.out.println("\nTesting Disjoint set with Vertex type elements");
-        System.out.println("-----------------------------------------------\n");
-        DisjointSet<Vertex> vSet = new DisjointSet<>();
-        Vertex V1 = new Vertex("V1");
-        Vertex V2 = new Vertex("V2");
-        Vertex V3 = new Vertex("V3");
-        Vertex V5 = new Vertex("V5");
-        Vertex V8 = new Vertex("V8");
-        Vertex V13 = new Vertex("V13");
-        Vertex V21 = new Vertex("V21");
-        Vertex V34 = new Vertex("V34");
-
-        vSet.insert(V1);
-        vSet.insert(V2);
-        vSet.insert(V3);
-        vSet.insert(V5);
-        vSet.insert(V8);
-        vSet.insert(V13);
-        vSet.insert(V21);
-        vSet.insert(V34);
-
-        vSet.union(V1, V21);
-        vSet.union(V2, V13);
-        vSet.union(V3, V8);
-        vSet.union(V1, V8);
-        vSet.union(V3,V5);
-        vSet.union(V3,V34);
-
-        System.out.println("The representative of the set with vertex V5 is : " + vSet.find(V5));
-        System.out.println("The representative of the set with vertex V3 is : " + vSet.find(V3));
-        System.out.println("The representative of the set with vertex V21 is : " + vSet.find(V21));
-        System.out.println("The representative of the set with vertex V8 is : " + vSet.find(V8));
-        System.out.println("The representative of the set with vertex V13 is : " + vSet.find(V13));
-        System.out.println("The representative of the set with vertex V2 is : " + vSet.find(V2));
-
-        System.out.println(vSet.isConnected(V8,V3));
-        System.out.println(vSet.isConnected(V34,V5));
-        System.out.println(vSet.isConnected(V2,V3));
-        System.out.println(vSet.isConnected(V2,V13));
-        System.out.println(vSet.isConnected(V21,V13));
-        System.out.println(vSet.isConnected(V21,V8));
+    /**
+     * Returns the number of disjoint sets overall. This number decreases monotonically as time progresses;
+     * Each call to union() either decrements the number by one or leaves it unchanged.
+     *
+     * @return the number of disjoint sets
+     */
+    public int getNumberOfSets() {
+        return numberOfSets;
     }
 }
